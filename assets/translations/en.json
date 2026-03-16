@@ -1,0 +1,23 @@
+{
+    "menu": {
+        "home": "Home",
+        "search": "Search",
+        "favorite": "Favorite",
+        "cart": "Cart",
+        "account": "Account"
+    },
+    "signIn": {
+        "email": "Email",
+        "password": "Password",
+        "login": "Login",
+        "signUp": "Sign Up",
+        "forgotPassword": "Forgot Password",
+        "title": "Login to your account",
+        "subtitle": "It's great to see you again!",
+        "or": "Or",
+        "noAccount": "Don't have an account?",
+        "join": "Join",
+        "googleLogin": "Login with Google",
+        "facebookLogin": "Login with Facebook"
+    }
+}
