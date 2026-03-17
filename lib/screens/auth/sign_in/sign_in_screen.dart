@@ -41,6 +41,7 @@ class SignInScreen extends BaseScreen<SignInController> {
   Widget buildBody(BuildContext context) {
     final themeService = Get.find<ThemeService>();
     final isDarkMode = themeService.isDarkMode;
+    const bottomBarHeight = 64.0;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -51,74 +52,89 @@ class SignInScreen extends BaseScreen<SignInController> {
           color: isDarkMode ? AppColors.gray200 : Colors.black87,
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(
-              text: context.tr("signIn.title"),
-              fontSize: 32,
-              fontWeight: FontWeight.w600,
-              color: isDarkMode ? AppColors.gray200 : AppColors.gray800,
-            ),
-            AppText(
-              text: context.tr("signIn.subtitle"),
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-              color: isDarkMode ? AppColors.gray200 : AppColors.gray700,
-            ),
-            const SizedBox(height: 32),
-            _buildEmailLoginSection(context, isDarkMode),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Obx(
-                () => AppButton(
-                  height: 60,
-                  borderRadius: 12,
-                  text: context.tr('signIn.login'),
-                  onTap: controller.isLoginEnabled.value
-                      ? () => controller.signInWithEmail()
-                      : () {},
-                  width: double.infinity,
-                  color: controller.isLoginEnabled.value
-                      ? AppColors.primary
-                      : (isDarkMode ? AppColors.gray600 : Colors.grey[500]),
+      body: SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                text: context.tr("signIn.title"),
+                fontSize: 32,
+                fontWeight: FontWeight.w600,
+                color: isDarkMode ? AppColors.gray200 : AppColors.gray800,
+              ),
+              AppText(
+                text: context.tr("signIn.subtitle"),
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                color: isDarkMode ? AppColors.gray200 : AppColors.gray700,
+              ),
+              const SizedBox(height: 32),
+              _buildEmailLoginSection(context, isDarkMode),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Obx(
+                  () => AppButton(
+                    height: 60,
+                    borderRadius: 12,
+                    text: context.tr('signIn.login'),
+                    onTap: controller.isLoginEnabled.value
+                        ? () => controller.signInWithEmail()
+                        : () {},
+                    width: double.infinity,
+                    color: controller.isLoginEnabled.value
+                        ? AppColors.primary
+                        : (isDarkMode ? AppColors.gray600 : Colors.grey[500]),
+                  ),
                 ),
               ),
-            ),
-            _buildDivision(context),
-            const SizedBox(height: 30),
-            _buildSocialLoginSection(context),
-          ],
+              _buildDivision(context),
+              const SizedBox(height: 30),
+              _buildSocialLoginSection(context),
+              const Spacer(),
+            ],
+          ),
         ),
       ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-        child: Center(
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: controller.gotoSignUp,
-            child: RichText(
-              text: TextSpan(
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: isDarkMode ? AppColors.gray200 : AppColors.gray700,
-                ),
-                children: [
-                  TextSpan(text: context.tr('signIn.noAccount')),
-                  const WidgetSpan(child: SizedBox(width: 4)),
-                  TextSpan(
-                    text: context.tr('signIn.join'),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
-                      color: AppColors.primary,
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: SizedBox(
+          height: bottomBarHeight,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Center(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: controller.gotoSignUp,
+                child: RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
                     ),
+                    children: [
+                      TextSpan(
+                        text: context.tr('signIn.noAccount'),
+                        style: TextStyle(
+                          color: isDarkMode
+                              ? AppColors.gray300
+                              : AppColors.gray700,
+                        ),
+                      ),
+                      const WidgetSpan(child: SizedBox(width: 4)),
+                      TextSpan(
+                        text: context.tr('signIn.join'),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.underline,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
