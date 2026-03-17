@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:ecommerce_app/common/services/snack_bar_service.dart';
+import 'package:ecommerce_app/screens/auth/forget_password/forget_password_screen.dart';
+import 'package:ecommerce_app/screens/auth/sign_up/sign_up_screen.dart';
+import 'package:ecommerce_app/screens/tab/tab_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -84,6 +87,8 @@ class SignInController extends GetxController {
       // );
       // _handleSignInResult(responseDTO);
       // checkStreak();
+      EasyLoading.showSuccess('signIn.loginSuccessful'.tr);
+      Get.to(() => TabScreen());
     } catch (e) {
       EasyLoading.dismiss();
       log('Email 로그인 실패: $e');
@@ -214,6 +219,10 @@ class SignInController extends GetxController {
   // }
 
   void gotoSignUp() {
-    // Get.to(() => SignUpScreen());
+    Get.to(() => SignUpScreen());
+  }
+
+  void gotoForgetPassword() {
+    Get.to(() => ForgetPasswordScreen());
   }
 }

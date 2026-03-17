@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/common/theme/theme_service.dart';
+import 'package:ecommerce_app/screens/auth/forget_password/forget_password_controller.dart';
 import 'package:ecommerce_app/screens/auth/sign_in/sign_in_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/account_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/cart/cart_screen_controller.dart';
@@ -23,5 +24,6 @@ class AppBinding extends Bindings {
 
     //auth
     Get.lazyPut(() => SignInController(), fenix: true);
+    Get.lazyPut(() => ForgetPasswordController(), fenix: true);
   }
 }

@@ -85,8 +85,8 @@ class SignInScreen extends BaseScreen<SignInController> {
                         : () {},
                     width: double.infinity,
                     color: controller.isLoginEnabled.value
-                        ? AppColors.primary
-                        : (isDarkMode ? AppColors.gray600 : Colors.grey[500]),
+                        ? Colors.black
+                        : (isDarkMode ? AppColors.gray600 : AppColors.gray500),
                   ),
                 ),
               ),
@@ -128,8 +128,7 @@ class SignInScreen extends BaseScreen<SignInController> {
                         text: context.tr('signIn.join'),
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
-                          color: AppColors.primary,
+                          color: Colors.black,
                         ),
                       ),
                     ],
@@ -177,21 +176,23 @@ class SignInScreen extends BaseScreen<SignInController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppTextField(
+          enableBorderColor: Colors.black,
           hintText: context.tr('signIn.email'),
           textController: controller.emailController,
         ),
         const SizedBox(height: 20),
         AppTextField(
+          enableBorderColor: Colors.black,
           hintText: context.tr('signIn.password'),
           textController: controller.passwordController,
           obscureText: true,
         ),
         TextButton(
           onPressed: () {
-            // to do (reset password)
+            controller.gotoForgetPassword();
           },
           child: AppText(
-            color: AppColors.primary,
+            color: Colors.black,
             text: context.tr('signIn.forgotPassword'),
             fontSize: 14,
           ),

@@ -19,5 +19,11 @@
         "join": "Join",
         "googleLogin": "Login with Google",
         "facebookLogin": "Login with Facebook"
+    },
+    "forgetPassword": {
+        "title": "Forgot Password",
+        "subtitle": "Enter your email for the verification process.We will send a code to your email.",
+        "sendCode": "Send Code",
+        "sendCodeSuccessful": "Code sent successfully"
     }
 }

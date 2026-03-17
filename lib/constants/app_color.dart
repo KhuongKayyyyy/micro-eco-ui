@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 // 앱 컬러 셋
 class AppColors {
   // ============ 디자인 시스템 컬러 ============
-  static Color primary = Color(0xFF0B57E4);
+  static Color primary = Color(0xFF000000);
   static Color sub = Color(0xFF6D9EF8);
   static Color background = Color(0xFFE7EFFE);
 
