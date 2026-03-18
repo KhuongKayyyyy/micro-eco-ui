@@ -2,9 +2,6 @@ import 'dart:developer';
 
 import 'package:ecommerce_app/common/services/snack_bar_service.dart';
 import 'package:ecommerce_app/constants/app_routes.dart';
-import 'package:ecommerce_app/screens/auth/forget_password/forget_password_screen.dart';
-import 'package:ecommerce_app/screens/auth/sign_up/sign_up_screen.dart';
-import 'package:ecommerce_app/screens/tab/tab_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';

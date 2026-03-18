@@ -32,6 +32,19 @@
         "emailNotReceived": "Email not received?",
         "resendCode": "Resend Code",
         "continue": "Continue"
-
+    },
+    "resetPassword": {
+        "title": "Reset Password",
+        "subtitle": "Set the new password for your account so you can login and access all the features.",
+        "password": "New Password",
+        "passwordHint": "********",
+        "confirmPassword": "Confirm Password",
+        "confirmPasswordHint": "********",
+        "continue": "Continue"
+    },
+    "passwordChanged": {
+        "title": "Password Changed!",
+        "subtitle": "You can now use your new password to login to your account.",
+        "login": "Login"
     }
 }

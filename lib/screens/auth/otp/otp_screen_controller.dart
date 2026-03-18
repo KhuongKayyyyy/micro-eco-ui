@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,10 +16,10 @@ class OtpScreenController extends GetxController {
   void onInit() {
     super.onInit();
     email = Get.arguments['email'] as String;
-    verifyOtp();
+    _checkOtpFilled();
     for (final controller in otpControllers) {
       controller.addListener(() {
-        verifyOtp();
+        _checkOtpFilled();
       });
     }
   }
@@ -45,11 +46,15 @@ class OtpScreenController extends GetxController {
     super.onClose();
   }
 
-  void verifyOtp() {
+  void _checkOtpFilled() {
     if (otpCode.length == 4) {
       isCodeFille.value = true;
     } else {
       isCodeFille.value = false;
     }
+  }
+
+  void verifyOtp() {
+    Get.toNamed(AppRoutes.resetPassword);
   }
 }

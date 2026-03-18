@@ -3,6 +3,8 @@ import 'package:ecommerce_app/screens/auth/forget_password/forget_password_contr
 import 'package:ecommerce_app/screens/auth/forget_password/forget_password_screen.dart';
 import 'package:ecommerce_app/screens/auth/otp/otp_screen.dart';
 import 'package:ecommerce_app/screens/auth/otp/otp_screen_controller.dart';
+import 'package:ecommerce_app/screens/auth/reset_password/reset_password_screen.dart';
+import 'package:ecommerce_app/screens/auth/reset_password/reset_password_screen_controller.dart';
 import 'package:ecommerce_app/screens/auth/sign_in/sign_in_controller.dart';
 import 'package:ecommerce_app/screens/auth/sign_in/sign_in_screen.dart';
 import 'package:ecommerce_app/screens/auth/sign_up/sign_up_screen.dart';
@@ -47,6 +49,13 @@ class AppPages {
       page: () => OtpScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => OtpScreenController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.resetPassword,
+      page: () => ResetPasswordScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ResetPasswordScreenController());
       }),
     ),
 
