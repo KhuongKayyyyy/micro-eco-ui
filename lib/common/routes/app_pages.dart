@@ -15,6 +15,7 @@ import 'package:ecommerce_app/screens/tab/cart/cart_screen.dart';
 import 'package:ecommerce_app/screens/tab/favorite/favorite_screen.dart';
 import 'package:ecommerce_app/screens/tab/home/home_screen.dart';
 import 'package:ecommerce_app/screens/tab/search/search_screen.dart';
+import 'package:ecommerce_app/screens/tab/tab_screen.dart';
 import 'package:get/get.dart';
 
 class AppPages {
@@ -60,10 +61,11 @@ class AppPages {
     ),
 
     //tab pages
-    GetPage(name: AppRoutes.home, page: () => HomeScreen()),
-    GetPage(name: AppRoutes.search, page: () => SearchScreen()),
-    GetPage(name: AppRoutes.favorite, page: () => FavoriteScreen()),
-    GetPage(name: AppRoutes.cart, page: () => CartScreen()),
-    GetPage(name: AppRoutes.account, page: () => AccountScreen()),
+    GetPage(name: AppRoutes.tabScreen, page: () => TabScreen()),
+    // GetPage(name: AppRoutes.home, page: () => HomeScreen()),
+    // GetPage(name: AppRoutes.search, page: () => SearchScreen()),
+    // GetPage(name: AppRoutes.favorite, page: () => FavoriteScreen()),
+    // GetPage(name: AppRoutes.cart, page: () => CartScreen()),
+    // GetPage(name: AppRoutes.account, page: () => AccountScreen()),
   ];
 }

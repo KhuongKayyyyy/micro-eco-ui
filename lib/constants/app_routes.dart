@@ -9,6 +9,7 @@ class AppRoutes {
   static const String resetPassword = '/resetPassword';
 
   //tab routes
+  static const String tabScreen = '/tabScreen';
   static const String home = '/home';
   static const String search = '/search';
   static const String favorite = '/favorite';

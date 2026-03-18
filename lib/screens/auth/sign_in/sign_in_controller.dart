@@ -86,7 +86,7 @@ class SignInController extends GetxController {
       // _handleSignInResult(responseDTO);
       // checkStreak();
       EasyLoading.showSuccess('signIn.loginSuccessful'.tr);
-      Get.toNamed(AppRoutes.home);
+      Get.toNamed(AppRoutes.tabScreen);
     } catch (e) {
       EasyLoading.dismiss();
       log('Email 로그인 실패: $e');
