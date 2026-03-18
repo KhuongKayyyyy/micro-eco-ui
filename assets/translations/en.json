@@ -25,5 +25,13 @@
         "subtitle": "Enter your email for the verification process.We will send a code to your email.",
         "sendCode": "Send Code",
         "sendCodeSuccessful": "Code sent successfully"
+    },
+    "otp": {
+        "title": "Enter 4 digit code",
+        "subtitle": "Enter the4 digit code that your received in your email",
+        "emailNotReceived": "Email not received?",
+        "resendCode": "Resend Code",
+        "continue": "Continue"
+
     }
 }

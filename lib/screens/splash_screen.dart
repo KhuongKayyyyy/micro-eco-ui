@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:ecommerce_app/common/services/secure_storage_service.dart';
 import 'package:ecommerce_app/common/theme/theme_service.dart';
 import 'package:ecommerce_app/constants/app_color.dart';
-import 'package:ecommerce_app/screens/auth/sign_in/sign_in_screen.dart';
-import 'package:ecommerce_app/screens/tab/tab_screen.dart';
+import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,22 +25,14 @@ class _SplashScreen extends State<SplashScreen> {
 
       // If there is no token, navigate to the login screen
       if (accessToken == null) {
-        _goToSignIn();
+        Get.offAllNamed(AppRoutes.signIn);
       } else {
         try {
           // to do
         } catch (_) {}
-        _goToHome();
+        Get.offAllNamed(AppRoutes.home);
       }
     });
-  }
-
-  void _goToHome() {
-    Get.offAll(() => const TabScreen());
-  }
-
-  void _goToSignIn() {
-    Get.offAll(SignInScreen());
   }
 
   @override

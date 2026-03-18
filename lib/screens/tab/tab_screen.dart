@@ -5,13 +5,25 @@ import 'package:easy_localization/easy_localization.dart'
 import 'package:ecommerce_app/components/base/base_screen.dart';
 import 'package:ecommerce_app/constants/app_color.dart';
 import 'package:ecommerce_app/constants/image_path.dart';
+import 'package:ecommerce_app/screens/tab/account/account_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/cart/cart_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/favorite/favorite_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/home/home_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/search/search_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/tab_controller.dart';
 import 'package:flutter/material.dart' hide TabController;
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart' hide Trans;
 
 class TabScreen extends BaseScreen<TabScreenController> {
-  const TabScreen({super.key});
+  TabScreen({super.key}) {
+    Get.put(TabScreenController());
+    Get.put(HomeScreenController());
+    Get.put(SearchScreenController());
+    Get.put(FavoriteScreenController());
+    Get.put(CartScreenController());
+    Get.put(AccountScreenController());
+  }
 
   ///
   /// Init

@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecommerce_app/common/binding/app_binding.dart';
+import 'package:ecommerce_app/common/routes/app_pages.dart';
 import 'package:ecommerce_app/common/services/app_size.dart';
 import 'package:ecommerce_app/common/theme/theme_service.dart';
+import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:ecommerce_app/constants/app_theme.dart';
 import 'package:ecommerce_app/screens/splash_screen.dart';
 import 'package:flutter/foundation.dart';
@@ -94,6 +96,8 @@ class MyApp extends StatelessWidget {
         child: Obx(() {
           final ThemeService themeService = Get.find<ThemeService>();
           return GetMaterialApp(
+            initialRoute: AppRoutes.splash,
+            getPages: AppPages.pages,
             initialBinding: AppBinding(),
             title: 'SKKU EMBA',
             debugShowCheckedModeBanner: false,

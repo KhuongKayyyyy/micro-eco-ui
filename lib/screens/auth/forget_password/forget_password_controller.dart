@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,11 @@ class ForgetPasswordController extends GetxController {
   }
 
   void sendCode() {
-    EasyLoading.showSuccess('signIn.sendCodeSuccessful'.tr);
+    EasyLoading.showSuccess('forgetPassword.sendCodeSuccessful'.tr);
+    Get.toNamed(
+      AppRoutes.otp,
+      arguments: {'email': emailController.text.trim()},
+    );
   }
 
   void _checkEmailValidation() {
