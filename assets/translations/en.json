@@ -51,4 +51,13 @@
         "noNotifications": "You haven't gotten any notifications yet!",
         "weWillAlertYou": "We'll alert you when something cool happens."
     }
+    ,
+    "home": {
+        "title": "Home"
+    },
+    "favorite": {
+        "title": "Favorite",    
+        "noFavoriteProducts": "You don’t have any saved items.\nGo to home and add some.",
+        "noSavedItems": "No Saved Items!"
+    }
 }
