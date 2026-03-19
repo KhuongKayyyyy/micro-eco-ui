@@ -15,4 +15,7 @@ class AppRoutes {
   static const String favorite = '/favorite';
   static const String cart = '/cart';
   static const String account = '/account';
+
+  //notification routes
+  static const String notification = '/notification';
 }

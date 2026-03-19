@@ -5,43 +5,13 @@ import 'package:easy_localization/easy_localization.dart'
 import 'package:ecommerce_app/components/base/base_screen.dart';
 import 'package:ecommerce_app/constants/app_color.dart';
 import 'package:ecommerce_app/constants/image_path.dart';
-import 'package:ecommerce_app/screens/tab/account/account_screen_controller.dart';
-import 'package:ecommerce_app/screens/tab/cart/cart_screen_controller.dart';
-import 'package:ecommerce_app/screens/tab/favorite/favorite_screen_controller.dart';
-import 'package:ecommerce_app/screens/tab/home/home_screen_controller.dart';
-import 'package:ecommerce_app/screens/tab/search/search_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/tab_controller.dart';
 import 'package:flutter/material.dart' hide TabController;
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart' hide Trans;
 
 class TabScreen extends BaseScreen<TabScreenController> {
-  TabScreen({super.key}) {
-    Get.put(TabScreenController());
-    Get.put(HomeScreenController());
-    Get.put(SearchScreenController());
-    Get.put(FavoriteScreenController());
-    Get.put(CartScreenController());
-    Get.put(AccountScreenController());
-  }
-
-  ///
-  /// Init
-  ///
-  @override
-  void onInit(BuildContext context) {
-    super.onInit(context);
-    Get.put(TabScreenController());
-  }
-
-  ///
-  /// Dispose
-  ///
-  @override
-  void onDispose(BuildContext context) {
-    Get.delete<TabScreenController>();
-    super.onDispose(context);
-  }
+  const TabScreen({super.key});
 
   ///
   /// 화면 본문
@@ -134,7 +104,7 @@ class TabScreen extends BaseScreen<TabScreenController> {
                   ? Colors.white
                   : null,
             ),
-            label: context.tr('menu.hashtags'),
+            label: context.tr('menu.search'),
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -153,7 +123,7 @@ class TabScreen extends BaseScreen<TabScreenController> {
                   ? Colors.white
                   : null,
             ),
-            label: context.tr('menu.debate'),
+            label: context.tr('menu.favorite'),
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -172,7 +142,7 @@ class TabScreen extends BaseScreen<TabScreenController> {
                   ? Colors.white
                   : null,
             ),
-            label: context.tr('menu.badges'),
+            label: context.tr('menu.cart'),
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -191,7 +161,7 @@ class TabScreen extends BaseScreen<TabScreenController> {
                   ? Colors.white
                   : null,
             ),
-            label: context.tr('menu.mentors'),
+            label: context.tr('menu.account'),
           ),
         ],
       ),

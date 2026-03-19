@@ -27,12 +27,13 @@ class _SplashScreen extends State<SplashScreen> {
 
       // If there is no token, navigate to the login screen
       if (accessToken == null) {
-        Get.offAllNamed(AppRoutes.signIn);
+        // Get.offAllNamed(AppRoutes.signIn);
+        Get.offAllNamed(AppRoutes.tabScreen);
       } else {
         try {
           // to do
         } catch (_) {}
-        Get.offAllNamed(AppRoutes.home);
+        Get.offAllNamed(AppRoutes.tabScreen);
       }
     });
   }

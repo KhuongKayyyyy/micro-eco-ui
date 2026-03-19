@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
             initialRoute: AppRoutes.splash,
             getPages: AppPages.pages,
             initialBinding: AppBinding(),
-            title: 'SKKU EMBA',
+            title: 'Micro Ecommerce',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/common/binding/tab_binding.dart';
 import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:ecommerce_app/screens/auth/forget_password/forget_password_controller.dart';
 import 'package:ecommerce_app/screens/auth/forget_password/forget_password_screen.dart';
@@ -9,12 +10,9 @@ import 'package:ecommerce_app/screens/auth/sign_in/sign_in_controller.dart';
 import 'package:ecommerce_app/screens/auth/sign_in/sign_in_screen.dart';
 import 'package:ecommerce_app/screens/auth/sign_up/sign_up_screen.dart';
 import 'package:ecommerce_app/screens/auth/sign_up/sign_up_screen_controller.dart';
+import 'package:ecommerce_app/screens/notifications/notification_screen.dart';
+import 'package:ecommerce_app/screens/notifications/notification_screen_controller.dart';
 import 'package:ecommerce_app/screens/splash_screen.dart';
-import 'package:ecommerce_app/screens/tab/account/account_screen.dart';
-import 'package:ecommerce_app/screens/tab/cart/cart_screen.dart';
-import 'package:ecommerce_app/screens/tab/favorite/favorite_screen.dart';
-import 'package:ecommerce_app/screens/tab/home/home_screen.dart';
-import 'package:ecommerce_app/screens/tab/search/search_screen.dart';
 import 'package:ecommerce_app/screens/tab/tab_screen.dart';
 import 'package:get/get.dart';
 
@@ -61,11 +59,19 @@ class AppPages {
     ),
 
     //tab pages
-    GetPage(name: AppRoutes.tabScreen, page: () => TabScreen()),
-    // GetPage(name: AppRoutes.home, page: () => HomeScreen()),
-    // GetPage(name: AppRoutes.search, page: () => SearchScreen()),
-    // GetPage(name: AppRoutes.favorite, page: () => FavoriteScreen()),
-    // GetPage(name: AppRoutes.cart, page: () => CartScreen()),
-    // GetPage(name: AppRoutes.account, page: () => AccountScreen()),
+    GetPage(
+      name: AppRoutes.tabScreen,
+      page: () => TabScreen(),
+      binding: TabBinding(),
+    ),
+
+    //home pages
+    GetPage(
+      name: AppRoutes.notification,
+      page: () => NotificationScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => NotificationScreenController());
+      }),
+    ),
   ];
 }

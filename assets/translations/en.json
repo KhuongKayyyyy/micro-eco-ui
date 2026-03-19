@@ -46,5 +46,9 @@
         "title": "Password Changed!",
         "subtitle": "You can now use your new password to login to your account.",
         "login": "Login"
+    },
+    "notification": {
+        "noNotifications": "You haven't gotten any notifications yet!",
+        "weWillAlertYou": "We'll alert you when something cool happens."
     }
 }

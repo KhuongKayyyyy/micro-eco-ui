@@ -1,5 +1,8 @@
+import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:get/get.dart';
 
 class HomeScreenController extends GetxController {
-  final RxInt currentIndex = 0.obs;
+  void navigateToNotificationScreen() {
+    Get.toNamed(AppRoutes.notification);
+  }
 }
