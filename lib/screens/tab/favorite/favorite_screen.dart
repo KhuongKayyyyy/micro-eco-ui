@@ -14,7 +14,7 @@ class FavoriteScreen extends BaseScreen<FavoriteScreenController> {
 
   @override
   PreferredSizeWidget? buildAppBar(BuildContext context) {
-    return AppBar(title: GlobalAppBar(title: context.tr('favorite.title')));
+    return GlobalAppBar(title: context.tr('favorite.title'));
   }
 
   Widget _buildNoFavoriteProducts(BuildContext context) {

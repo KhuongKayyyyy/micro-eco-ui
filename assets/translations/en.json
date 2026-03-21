@@ -59,5 +59,18 @@
         "title": "Favorite",    
         "noFavoriteProducts": "You don’t have any saved items.\nGo to home and add some.",
         "noSavedItems": "No Saved Items!"
+    },
+    "account": {
+        "title": "Account",
+        "myOrders": "My Orders",
+        "myDetails": "My Details",
+        "addressBook": "Address Book",
+        "myReviews": "My Reviews",
+        "paymentMethods": "Payment Methods",
+        "notifications": "Notifications",
+        "helpCenter": "Help Center",
+        "faqs": "FAQs",
+        "language": "Language",
+        "logout": "Logout"
     }
 }
