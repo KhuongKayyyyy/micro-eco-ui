@@ -18,4 +18,15 @@ class AppRoutes {
 
   //notification routes
   static const String notification = '/notification';
+
+  //account routes
+  static const String myDetail = '/myDetail';
+  static const String addressBook = '/addressBook';
+  static const String myReviews = '/myReviews';
+  static const String paymentMethods = '/paymentMethods';
+  static const String notifications = '/notifications';
+  static const String helpCenter = '/helpCenter';
+  static const String faqs = '/faqs';
+  static const String language = '/language';
+  static const String logout = '/logout';
 }

@@ -1,5 +1,3 @@
-// ignore: depend_on_referenced_packages
-import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart'
     hide StringTranslateExtension;
 import 'package:ecommerce_app/components/base/base_screen.dart';
@@ -7,7 +5,6 @@ import 'package:ecommerce_app/constants/app_color.dart';
 import 'package:ecommerce_app/constants/image_path.dart';
 import 'package:ecommerce_app/screens/tab/tab_controller.dart';
 import 'package:flutter/material.dart' hide TabController;
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart' hide Trans;
 
 class TabScreen extends BaseScreen<TabScreenController> {
@@ -19,17 +16,11 @@ class TabScreen extends BaseScreen<TabScreenController> {
   @override
   Widget buildBody(BuildContext context) {
     return Obx(
-      () => PageView(
-        controller: viewModel.pageController,
-        physics: const NeverScrollableScrollPhysics(), // 스와이프 비활성화
-        onPageChanged: (index) {
-          viewModel.currentIndex.value = index;
-        },
-        children: viewModel.pages.mapIndexed((index, page) {
-          return page
-              .animate(target: viewModel.currentIndex.value == index ? 1 : 0)
-              .fade(duration: 200.ms);
-        }).toList(),
+      () => IndexedStack(
+        index: viewModel.currentIndex.value,
+        children: [
+          for (final navigator in viewModel.tabNavigators) navigator,
+        ],
       ),
     );
   }
@@ -64,8 +55,7 @@ class TabScreen extends BaseScreen<TabScreenController> {
           fontWeight: FontWeight.w400,
         ),
         onTap: (index) {
-          viewModel.currentIndex.value = index;
-          viewModel.pageController.jumpToPage(index);
+          viewModel.updatePage(index);
         },
         items: [
           BottomNavigationBarItem(

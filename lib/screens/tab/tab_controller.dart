@@ -1,16 +1,21 @@
 import 'package:ecommerce_app/screens/tab/account/account_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen.dart';
 import 'package:ecommerce_app/screens/tab/cart/cart_screen.dart';
 import 'package:ecommerce_app/screens/tab/favorite/favorite_screen.dart';
 import 'package:ecommerce_app/screens/tab/home/home_screen.dart';
 import 'package:ecommerce_app/screens/tab/search/search_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ecommerce_app/screens/notifications/notification_screen.dart';
+import 'package:ecommerce_app/screens/notifications/notification_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ecommerce_app/constants/app_routes.dart';
 
 enum TabType { home, hashtags, debate, badges, mentors }
 
-/// 탭 화면 컨트롤러
 class TabScreenController extends GetxController {
-  final List<Widget> pages = [
+  /// 🔥 Root pages (ONE per tab)
+  final List<Widget> pages = const [
     HomeScreen(),
     SearchScreen(),
     FavoriteScreen(),
@@ -18,39 +23,70 @@ class TabScreenController extends GetxController {
     AccountScreen(),
   ];
 
-  RxInt currentIndex = 0.obs; // 현재 선택된 탭 인덱스 추가
-  late final PageController pageController;
+  /// 🔥 Cached navigators (IMPORTANT)
+  late final List<Widget> tabNavigators;
+  late final List<int> tabNavigatorIds;
+
+  RxInt currentIndex = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
-    pageController = PageController(initialPage: 0);
+
+    // Use instance-unique IDs to prevent GlobalKey collisions
+    // when TabScreenController is recreated.
+    final instanceId = DateTime.now().microsecondsSinceEpoch;
+    tabNavigatorIds = List.generate(
+      pages.length,
+      (index) => (instanceId * 10) + index,
+    );
+
+    /// ✅ CREATE NAVIGATORS ONLY ONCE (fix duplicate key)
+    tabNavigators = List.generate(pages.length, (index) {
+      return Navigator(
+        key: Get.nestedKey(tabNavigatorIds[index]),
+        initialRoute: Navigator.defaultRouteName,
+        onGenerateRoute: (settings) {
+          final name = settings.name;
+
+          // Route inside the current tab navigator (BottomNavigationBar stays visible).
+          if (name == AppRoutes.notification) {
+            if (!Get.isRegistered<NotificationScreenController>()) {
+              Get.put(NotificationScreenController());
+            }
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (_) => const NotificationScreen(),
+            );
+          }
+
+          if (name == AppRoutes.myDetail) {
+            if (!Get.isRegistered<MyDetailScreenController>()) {
+              Get.put(MyDetailScreenController());
+            }
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (_) => const MyDetailScreen(),
+            );
+          }
+
+          // Initial/default route for each tab.
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => pages[index],
+          );
+        },
+      );
+    });
   }
 
-  void upatePage(int page) {
-    pageController.jumpToPage(page);
+  void updatePage(int page) {
+    currentIndex.value = page;
   }
 
-  ///
-  /// 탭 이동
-  ///
   void moveToTabByType(TabType type) {
-    switch (type) {
-      case TabType.home:
-        pageController.jumpToPage(0);
-        break;
-      case TabType.hashtags:
-        pageController.jumpToPage(1);
-        break;
-      case TabType.debate:
-        pageController.jumpToPage(2);
-        break;
-      case TabType.badges:
-        pageController.jumpToPage(3);
-        break;
-      case TabType.mentors:
-        pageController.jumpToPage(4);
-        break;
-    }
+    updatePage(type.index);
   }
+
+  int navigatorIdForTab(TabType type) => tabNavigatorIds[type.index];
 }

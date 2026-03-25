@@ -4,6 +4,7 @@ import 'package:ecommerce_app/components/general/app_text.dart';
 import 'package:ecommerce_app/components/general/global_app_bar.dart';
 import 'package:ecommerce_app/components/product/favorite_product_item.dart';
 import 'package:ecommerce_app/screens/tab/favorite/favorite_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/tab_controller.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteScreen extends BaseScreen<FavoriteScreenController> {
@@ -14,7 +15,10 @@ class FavoriteScreen extends BaseScreen<FavoriteScreenController> {
 
   @override
   PreferredSizeWidget? buildAppBar(BuildContext context) {
-    return GlobalAppBar(title: context.tr('favorite.title'));
+    return GlobalAppBar(
+      title: context.tr('favorite.title'),
+      tabType: TabType.debate,
+    );
   }
 
   Widget _buildNoFavoriteProducts(BuildContext context) {
