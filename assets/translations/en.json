@@ -1,4 +1,16 @@
 {
+    "buttonAction": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "view": "View",
+        "add": "Add",
+        "submit": "Submit",
+        "search": "Search",
+        "filter": "Filter",
+        "sort": "Sort"
+    },
     "menu": {
         "home": "Home",
         "search": "Search",
@@ -71,6 +83,14 @@
         "helpCenter": "Help Center",
         "faqs": "FAQs",
         "language": "Language",
-        "logout": "Logout"
+        "logout": "Logout",
+        "fullName": "Full Name",
+        "emailAddress": "Email Address",
+        "dateOfBirth": "Date of Birth",
+        "gender": "Gender",
+        "phoneNumber": "Phone Number",
+        "genderMale": "Male",
+        "genderFemale": "Female",
+        "enterCountry": "Enter Country"
     }
 }
