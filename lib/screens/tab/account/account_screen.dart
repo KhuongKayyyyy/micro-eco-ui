@@ -53,6 +53,7 @@ class AccountScreen extends BaseScreen<AccountScreenController> {
         AppFeatureItem(
           title: context.tr('account.helpCenter'),
           icon: Icons.help_outline,
+          onTap: () => controller.goToHelpCenter(),
         ),
         AppFeatureItem(
           title: context.tr('account.faqs'),

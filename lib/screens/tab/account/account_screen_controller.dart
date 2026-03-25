@@ -16,4 +16,8 @@ class AccountScreenController extends GetxController {
   void goToNotiSetting() {
     AppNavigatorUtils.goToScreen(Get.context!, AppRoutes.notiSetting);
   }
+
+  void goToHelpCenter() {
+    AppNavigatorUtils.goToScreen(Get.context!, AppRoutes.helpCenter);
+  }
 }

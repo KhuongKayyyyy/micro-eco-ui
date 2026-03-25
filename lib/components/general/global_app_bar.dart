@@ -26,7 +26,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Padding(
         padding: const EdgeInsets.only(left: 16),
-        child: AppText(text: title, fontSize: 28, fontWeight: FontWeight.w700),
+        child: AppText(text: title, fontSize: 26, fontWeight: FontWeight.w700),
       ),
       centerTitle: isTitleCenter,
       titleSpacing: 0,
