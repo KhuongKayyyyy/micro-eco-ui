@@ -13,6 +13,8 @@ import 'package:ecommerce_app/screens/auth/sign_up/sign_up_screen_controller.dar
 import 'package:ecommerce_app/screens/notifications/notification_screen.dart';
 import 'package:ecommerce_app/screens/notifications/notification_screen_controller.dart';
 import 'package:ecommerce_app/screens/splash_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/faq/fap_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/faq/faq_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/help_center/help_center_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/help_center/help_center_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen.dart';
@@ -99,6 +101,13 @@ class AppPages {
       page: () => HelpCenterScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => HelpCenterScreenController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.faqs,
+      page: () => FaqScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => FaqScreenController());
       }),
     ),
   ];

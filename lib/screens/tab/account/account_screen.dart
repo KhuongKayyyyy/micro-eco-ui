@@ -59,6 +59,7 @@ class AccountScreen extends BaseScreen<AccountScreenController> {
           title: context.tr('account.faqs'),
           icon: Icons.help_center_outlined,
           isLastItem: true,
+          onTap: () => controller.goToFaqs(),
         ),
         _buildSectionDivider(),
         _buildLogOutSection(context),

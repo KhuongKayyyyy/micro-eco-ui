@@ -20,4 +20,8 @@ class AccountScreenController extends GetxController {
   void goToHelpCenter() {
     AppNavigatorUtils.goToScreen(Get.context!, AppRoutes.helpCenter);
   }
+
+  void goToFaqs() {
+    AppNavigatorUtils.goToScreen(Get.context!, AppRoutes.faqs);
+  }
 }
