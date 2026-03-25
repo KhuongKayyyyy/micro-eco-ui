@@ -1,15 +1,11 @@
 import 'package:ecommerce_app/screens/tab/account/account_screen.dart';
-import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen.dart';
 import 'package:ecommerce_app/screens/tab/cart/cart_screen.dart';
 import 'package:ecommerce_app/screens/tab/favorite/favorite_screen.dart';
 import 'package:ecommerce_app/screens/tab/home/home_screen.dart';
 import 'package:ecommerce_app/screens/tab/search/search_screen.dart';
-import 'package:ecommerce_app/screens/notifications/notification_screen.dart';
-import 'package:ecommerce_app/screens/notifications/notification_screen_controller.dart';
-import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ecommerce_app/constants/app_routes.dart';
+import 'package:ecommerce_app/common/routes/app_pages.dart';
 
 enum TabType { home, hashtags, debate, badges, mentors }
 
@@ -26,6 +22,7 @@ class TabScreenController extends GetxController {
   /// 🔥 Cached navigators (IMPORTANT)
   late final List<Widget> tabNavigators;
   late final List<int> tabNavigatorIds;
+  late final Map<String, GetPage> _routeMap;
 
   RxInt currentIndex = 0.obs;
 
@@ -49,24 +46,14 @@ class TabScreenController extends GetxController {
         onGenerateRoute: (settings) {
           final name = settings.name;
 
-          // Route inside the current tab navigator (BottomNavigationBar stays visible).
-          if (name == AppRoutes.notification) {
-            if (!Get.isRegistered<NotificationScreenController>()) {
-              Get.put(NotificationScreenController());
-            }
-            return MaterialPageRoute(
+          // Use GetX route definitions (binding/controllers) already defined in `AppPages`.
+          final getPage = _findGetPage(name);
+          if (getPage != null) {
+            return GetPageRoute(
               settings: settings,
-              builder: (_) => const NotificationScreen(),
-            );
-          }
-
-          if (name == AppRoutes.myDetail) {
-            if (!Get.isRegistered<MyDetailScreenController>()) {
-              Get.put(MyDetailScreenController());
-            }
-            return MaterialPageRoute(
-              settings: settings,
-              builder: (_) => const MyDetailScreen(),
+              page: getPage.page,
+              binding: getPage.binding,
+              bindings: getPage.bindings,
             );
           }
 
@@ -78,6 +65,7 @@ class TabScreenController extends GetxController {
         },
       );
     });
+    _routeMap = {for (final page in AppPages.pages) page.name: page};
   }
 
   void updatePage(int page) {
@@ -89,4 +77,9 @@ class TabScreenController extends GetxController {
   }
 
   int navigatorIdForTab(TabType type) => tabNavigatorIds[type.index];
+
+  GetPage? _findGetPage(String? name) {
+    if (name == null) return null;
+    return _routeMap[name];
+  }
 }

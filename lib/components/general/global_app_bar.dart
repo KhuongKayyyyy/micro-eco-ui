@@ -5,11 +5,18 @@ import 'package:ecommerce_app/screens/tab/tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  bool isTitleCenter;
   final TabType? tabType;
 
-  const GlobalAppBar({super.key, required this.title, this.tabType});
+  GlobalAppBar({
+    super.key,
+    required this.title,
+    this.tabType,
+    this.isTitleCenter = false,
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -19,9 +26,9 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Padding(
         padding: const EdgeInsets.only(left: 16),
-        child: AppText(text: title, fontSize: 32, fontWeight: FontWeight.w700),
+        child: AppText(text: title, fontSize: 28, fontWeight: FontWeight.w700),
       ),
-      centerTitle: false,
+      centerTitle: isTitleCenter,
       titleSpacing: 0,
       actions: [
         IconButton(

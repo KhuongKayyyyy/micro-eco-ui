@@ -46,6 +46,7 @@ class AccountScreen extends BaseScreen<AccountScreenController> {
         AppFeatureItem(
           title: context.tr('account.notifications'),
           icon: Icons.notifications_outlined,
+          onTap: () => controller.goToNotiSetting(),
           isLastItem: true,
         ),
         _buildSectionDivider(),

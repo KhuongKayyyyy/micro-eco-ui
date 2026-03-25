@@ -15,6 +15,8 @@ import 'package:ecommerce_app/screens/notifications/notification_screen_controll
 import 'package:ecommerce_app/screens/splash_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_screen.dart';
 import 'package:ecommerce_app/screens/tab/tab_screen.dart';
 import 'package:get/get.dart';
 
@@ -81,6 +83,13 @@ class AppPages {
       page: () => MyDetailScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => MyDetailScreenController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.notiSetting,
+      page: () => NotiSettingScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => NotiSettingController());
       }),
     ),
   ];

@@ -92,5 +92,18 @@
         "genderMale": "Male",
         "genderFemale": "Female",
         "enterCountry": "Enter Country"
+    },
+    "notificationSetting": {
+        "title": "Notification",
+        "generalNotifications": "General Notifications",
+        "sound": "Sound",
+        "specialOffer": "Special Offer",
+        "vibrate": "Vibrate",
+        "promoDiscounts": "Promo & Discounts",
+        "payments": "Payments",
+        "cashBack": "Cash Back",
+        "appUpdates": "App Updates",
+        "newServiceAvailable": "New Service Available",
+        "newTipsAvailable": "New Tips Available"
     }
 }

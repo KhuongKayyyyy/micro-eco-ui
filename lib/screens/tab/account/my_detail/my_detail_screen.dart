@@ -276,6 +276,7 @@ class MyDetailScreen extends BaseScreen<MyDetailScreenController> {
   PreferredSizeWidget? buildAppBar(BuildContext context) {
     return GlobalAppBar(
       title: context.tr('account.myDetails'),
+      isTitleCenter: true,
       tabType: TabType.mentors,
     );
   }
