@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/common/utils/app_navigator_utils.dart';
+import 'package:ecommerce_app/components/dialog/log_out_dialog.dart';
 import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +9,9 @@ class AccountScreenController extends GetxController {
     AppNavigatorUtils.goToScreen(Get.context!, AppRoutes.myDetail);
   }
 
-  void logout() {}
+  void logout() {
+    Get.dialog(LogOutDialog());
+  }
 
   void goToNotiSetting() {
     AppNavigatorUtils.goToScreen(Get.context!, AppRoutes.notiSetting);
