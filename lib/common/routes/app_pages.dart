@@ -19,6 +19,8 @@ import 'package:ecommerce_app/screens/tab/account/help_center/help_center_screen
 import 'package:ecommerce_app/screens/tab/account/help_center/help_center_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/my_order_screen/my_order_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/my_order_screen/my_order_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_screen.dart';
 import 'package:ecommerce_app/screens/tab/tab_screen.dart';
@@ -108,6 +110,13 @@ class AppPages {
       page: () => FaqScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => FaqScreenController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.myOrders,
+      page: () => MyOrderScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MyOrderScreenController());
       }),
     ),
   ];

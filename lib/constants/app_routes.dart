@@ -20,6 +20,7 @@ class AppRoutes {
   static const String notification = '/notification';
 
   //account routes
+  static const String myOrders = '/myOrders';
   static const String myDetail = '/myDetail';
   static const String addressBook = '/addressBook';
   static const String myReviews = '/myReviews';

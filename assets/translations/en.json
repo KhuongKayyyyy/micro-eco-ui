@@ -105,5 +105,22 @@
         "appUpdates": "App Updates",
         "newServiceAvailable": "New Service Available",
         "newTipsAvailable": "New Tips Available"
+    },
+    "myOrders": {
+        "title": "My Orders",
+        "noOrders": "You don’t have any orders yet.\nGo to home and add some.",
+        "noOrdersYet": "No Orders Yet!",
+        "returnRefund": "Return / Refund",
+        "buyAgain": "Buy again",
+        "viewDetails": "View Details",
+        "viewCancelDetail": "View Cancel Detail",
+        "contactShop": "Contact Shop",
+        "trackOrder": "Track Order",
+        "received": "Received",
+        "all": "All",
+        "pending": "Pending",
+        "processing": "Processing",
+        "hide": "Hide",
+        "viewMore": "View More" 
     }
 }

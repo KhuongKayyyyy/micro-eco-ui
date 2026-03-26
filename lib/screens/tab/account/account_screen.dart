@@ -24,6 +24,7 @@ class AccountScreen extends BaseScreen<AccountScreenController> {
         AppFeatureItem(
           title: context.tr('account.myOrders'),
           icon: Icons.shopping_bag_outlined,
+          onTap: () => controller.goToMyOrders(),
         ),
         _buildSectionDivider(),
         AppFeatureItem(

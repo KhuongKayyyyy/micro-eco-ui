@@ -24,4 +24,8 @@ class AccountScreenController extends GetxController {
   void goToFaqs() {
     AppNavigatorUtils.goToScreen(Get.context!, AppRoutes.faqs);
   }
+
+  void goToMyOrders() {
+    AppNavigatorUtils.goToScreen(Get.context!, AppRoutes.myOrders);
+  }
 }
