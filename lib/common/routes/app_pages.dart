@@ -13,6 +13,12 @@ import 'package:ecommerce_app/screens/auth/sign_up/sign_up_screen_controller.dar
 import 'package:ecommerce_app/screens/notifications/notification_screen.dart';
 import 'package:ecommerce_app/screens/notifications/notification_screen_controller.dart';
 import 'package:ecommerce_app/screens/splash_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/address_book/add_address_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/address_book/add_address_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/address_book/province_select_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/address_book/province_select_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/address_book/address_book_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/address_book/address_book_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/faq/fap_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/faq/faq_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/help_center/help_center_screen.dart';
@@ -117,6 +123,28 @@ class AppPages {
       page: () => MyOrderScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => MyOrderScreenController());
+      }),
+    ),
+
+    GetPage(
+      name: AppRoutes.addressBook,
+      page: () => AddressBookScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AddressBookScreenController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.addAddress,
+      page: () => AddAddressScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AddAddressScreenController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.provinceSelect,
+      page: () => ProvinceSelectScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ProvinceSelectScreenController());
       }),
     ),
   ];

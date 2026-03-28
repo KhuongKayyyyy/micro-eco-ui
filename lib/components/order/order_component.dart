@@ -6,7 +6,6 @@ import 'package:ecommerce_app/components/general/app_text.dart';
 import 'package:ecommerce_app/components/order/order_item_component.dart';
 import 'package:ecommerce_app/constants/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class OrderComponent extends StatefulWidget {
   final Order order;

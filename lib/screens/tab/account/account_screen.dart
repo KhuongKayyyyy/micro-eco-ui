@@ -35,6 +35,7 @@ class AccountScreen extends BaseScreen<AccountScreenController> {
         AppFeatureItem(
           title: context.tr('account.addressBook'),
           icon: Icons.location_on_outlined,
+          onTap: () => controller.goToAddressBook(),
         ),
         AppFeatureItem(
           title: context.tr('account.myReviews'),

@@ -211,7 +211,7 @@ class MyDetailScreen extends BaseScreen<MyDetailScreenController> {
   Widget _buildGenderDropdown(BuildContext context) {
     return _wrapSkeleton(
       DropdownButtonFormField<String>(
-        value: controller.genderController.text.isEmpty
+        initialValue: controller.genderController.text.isEmpty
             ? null
             : controller.genderController.text,
         items: [

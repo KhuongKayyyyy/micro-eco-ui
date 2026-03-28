@@ -28,4 +28,8 @@ class AccountScreenController extends GetxController {
   void goToMyOrders() {
     AppNavigatorUtils.goToScreen(Get.context!, AppRoutes.myOrders);
   }
+
+  void goToAddressBook() {
+    Get.toNamed(AppRoutes.addressBook, id: null);
+  }
 }

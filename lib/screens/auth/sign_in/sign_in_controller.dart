@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:ecommerce_app/common/services/snack_bar_service.dart';
 import 'package:ecommerce_app/constants/app_routes.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -76,7 +77,7 @@ class SignInController extends GetxController {
   Future<void> signInWithEmail() async {
     if (!isLoginEnabled.value) return;
 
-    EasyLoading.show(status: 'signIn.loading'.tr);
+    EasyLoading.show(status: tr('signIn.loading'));
 
     try {
       // final responseDTO = await _authService.signInWithEmail(
@@ -85,13 +86,13 @@ class SignInController extends GetxController {
       // );
       // _handleSignInResult(responseDTO);
       // checkStreak();
-      EasyLoading.showSuccess('signIn.loginSuccessful'.tr);
+      EasyLoading.showSuccess(tr('signIn.loginSuccessful'));
       Get.toNamed(AppRoutes.tabScreen);
     } catch (e) {
       EasyLoading.dismiss();
       log('Email 로그인 실패: $e');
       SnackBarService.showSnackBar(
-        '${'signIn.emailLoginFailed'.tr}${e.toString()}',
+        '${tr('signIn.emailLoginFailed')}${e.toString()}',
       );
     }
   }

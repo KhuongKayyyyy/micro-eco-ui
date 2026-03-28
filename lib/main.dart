@@ -3,6 +3,7 @@ import 'package:ecommerce_app/common/binding/app_binding.dart';
 import 'package:ecommerce_app/common/routes/app_pages.dart';
 import 'package:ecommerce_app/common/services/app_size.dart';
 import 'package:ecommerce_app/common/theme/theme_service.dart';
+import 'package:ecommerce_app/constants/app_color.dart';
 import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:ecommerce_app/constants/app_theme.dart';
 import 'package:ecommerce_app/screens/splash_screen.dart';
@@ -66,12 +67,27 @@ class MyApp extends StatelessWidget {
     EasyLoading.instance
       ..indicatorType = EasyLoadingIndicatorType.ring
       ..loadingStyle = EasyLoadingStyle.custom
-      ..backgroundColor = Colors.transparent
-      ..boxShadow = []
-      ..indicatorColor = const Color(0xFF17B179)
+      ..backgroundColor = AppColors.gray900
+      ..boxShadow = [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.22),
+          blurRadius: 20,
+          offset: const Offset(0, 8),
+        ),
+      ]
+      ..indicatorColor = AppColors.statusSuccess
+      ..progressColor = AppColors.statusSuccess
       ..maskType = EasyLoadingMaskType.black
-      ..maskColor = Colors.transparent
-      ..textColor = Colors.white
+      ..textColor = AppColors.white
+      ..textStyle = const TextStyle(
+        fontFamily: 'Pretendard',
+        color: Color(0xFFFFFFFF),
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        height: 1.35,
+      )
+      ..radius = 12
+      ..lineWidth = 3
       ..dismissOnTap = false;
   }
 
