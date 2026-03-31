@@ -49,6 +49,8 @@ dependencies:
   geolocator: ^14.0.2
   flutter_chat_ui: ^2.11.1
   flutter_chat_core: ^2.9.0
+  flutter_slidable: ^4.0.3
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:

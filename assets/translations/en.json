@@ -180,5 +180,14 @@
     },
     "customerService": {
         "title": "Customer Service"
+    },
+    "cartScreen": {
+        "title": "My Cart",
+        "empty": "Your cart is empty.",
+        "subtotal": "Sub-total",
+        "vat": "VAT (%)",
+        "shipping": "Shipping fee",
+        "total": "Total",
+        "checkout": "Go To Checkout"
     }
 }
