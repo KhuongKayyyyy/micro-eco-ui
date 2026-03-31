@@ -177,5 +177,8 @@
         "locationError": "Something went wrong while locating you. Try again or pick manually.",
         "wardPickManually": "Province detected — please select your ward.",
         "nativePluginMissing": "Location services need a full app rebuild. Stop the run, then: flutter clean, cd ios && pod install, then flutter run (not hot reload)."
+    },
+    "customerService": {
+        "title": "Customer Service"
     }
 }

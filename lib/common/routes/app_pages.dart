@@ -19,6 +19,8 @@ import 'package:ecommerce_app/screens/tab/account/address_book/province_select_s
 import 'package:ecommerce_app/screens/tab/account/address_book/province_select_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/address_book/address_book_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/address_book/address_book_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/customer_service/customer_service_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/customer_service/customer_service_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/faq/fap_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/faq/faq_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/help_center/help_center_screen.dart';
@@ -171,6 +173,13 @@ class AppPages {
       page: () => AddNewCardScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => AddNewCardScreenController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.customerService,
+      page: () => CustomerServiceScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => CustomerServiceScreenController());
       }),
     ),
   ];

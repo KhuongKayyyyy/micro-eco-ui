@@ -30,6 +30,7 @@ class AppRoutes {
   static const String addNewCard = '/addNewCard';
   static const String notiSetting = '/notiSetting';
   static const String helpCenter = '/helpCenter';
+  static const String customerService = '/customerService';
   static const String faqs = '/faqs';
   static const String language = '/language';
   static const String logout = '/logout';

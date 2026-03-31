@@ -54,7 +54,14 @@ class HelpCenterScreen extends BaseScreen<HelpCenterScreenController> {
                     padding: EdgeInsets.only(
                       bottom: i == items.length - 1 ? 0 : verticalGap,
                     ),
-                    child: _HelpCenterCard(item: items[i]),
+                    child: _HelpCenterCard(
+                      item: items[i],
+                      onTap: () {
+                        if (i == 0) {
+                          controller.goToCustomerService();
+                        }
+                      },
+                    ),
                   ),
               ],
             ),
@@ -73,35 +80,39 @@ class _HelpCenterItem {
 }
 
 class _HelpCenterCard extends StatelessWidget {
+  final VoidCallback onTap;
   final _HelpCenterItem item;
 
-  const _HelpCenterCard({required this.item});
+  const _HelpCenterCard({required this.item, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFEDEDED), width: 1),
-      ),
-      child: Row(
-        children: [
-          Icon(item.icon, size: 26, color: Colors.black),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              item.label,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFFEDEDED), width: 1),
+        ),
+        child: Row(
+          children: [
+            Icon(item.icon, size: 26, color: Colors.black),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                item.label,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -47,6 +47,8 @@ dependencies:
   diacritic: ^0.1.6
   geocoding: ^4.0.0
   geolocator: ^14.0.2
+  flutter_chat_ui: ^2.11.1
+  flutter_chat_core: ^2.9.0
 
 dev_dependencies:
   flutter_test:
