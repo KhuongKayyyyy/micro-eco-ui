@@ -3,10 +3,19 @@ import 'package:ecommerce_app/components/general/app_text.dart';
 import 'package:ecommerce_app/components/general/app_button.dart';
 import 'package:ecommerce_app/constants/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class PasswordChangedDialog extends StatelessWidget {
-  const PasswordChangedDialog({super.key});
+class SucessDialog extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final String buttonText;
+  final VoidCallback onButtonTap;
+  const SucessDialog({
+    super.key,
+    required this.title,
+    this.subtitle,
+    required this.buttonText,
+    required this.onButtonTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,26 +47,21 @@ class PasswordChangedDialog extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             AppText(
-              text: context.tr('passwordChanged.title'),
+              text: title,
               fontSize: 22,
               fontWeight: FontWeight.w600,
               color: AppColors.gray900,
             ),
             const SizedBox(height: 12),
             AppText(
-              text: context.tr('passwordChanged.subtitle'),
+              text: subtitle ?? context.tr('passwordChanged.subtitle'),
               textAlign: TextAlign.center,
               fontSize: 14,
               color: AppColors.gray500,
             ),
             const SizedBox(height: 24),
 
-            AppButton(
-              text: context.tr('passwordChanged.login'),
-              onTap: () {
-                Get.back();
-              },
-            ),
+            AppButton(text: buttonText, onTap: onButtonTap),
           ],
         ),
       ),

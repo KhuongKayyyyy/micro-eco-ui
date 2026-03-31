@@ -1,4 +1,5 @@
-import 'package:ecommerce_app/components/dialog/password_changed_dialog.dart';
+import 'package:easy_localization/easy_localization.dart' as context;
+import 'package:ecommerce_app/components/dialog/success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +29,15 @@ class ResetPasswordScreenController extends GetxController {
 
   void onContinue() {
     if (isPassChangeValid.value) {
-      Get.dialog(const PasswordChangedDialog(), barrierDismissible: false);
+      Get.dialog(
+        SucessDialog(
+          title: 'Password Changed!',
+          buttonText: 'Login',
+          onButtonTap: () {},
+        ),
+        barrierDismissible: false,
+      );
+      Get.back();
     }
   }
 
@@ -56,7 +65,15 @@ class ResetPasswordScreenController extends GetxController {
         isConfirmPasswordValid.value &&
         isPasswordMatch.value) {
       isPassChangeValid.value = true;
-      Get.dialog(const PasswordChangedDialog(), barrierDismissible: false);
+      Get.dialog(
+        SucessDialog(
+          title: context.tr('passwordChanged.title'),
+          subtitle: context.tr('passwordChanged.subtitle'),
+          buttonText: 'Login',
+          onButtonTap: () {},
+        ),
+        barrierDismissible: false,
+      );
     } else {
       isPassChangeValid.value = false;
     }

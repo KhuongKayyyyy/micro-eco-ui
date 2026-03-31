@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/data/serivce/address_service.dart';
+import 'package:ecommerce_app/data/service/address_service.dart';
 import 'package:ecommerce_app/model/address_model.dart';
 import 'package:get/get.dart';
 

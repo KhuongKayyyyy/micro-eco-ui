@@ -27,6 +27,10 @@ import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen.dar
 import 'package:ecommerce_app/screens/tab/account/my_detail/my_detail_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/my_order_screen/my_order_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/my_order_screen/my_order_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/payment_method/add_new_card_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/payment_method/add_new_card_screen_controller.dart';
+import 'package:ecommerce_app/screens/tab/account/payment_method/payment_method_screen.dart';
+import 'package:ecommerce_app/screens/tab/account/payment_method/payment_method_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_screen.dart';
 import 'package:ecommerce_app/screens/tab/tab_screen.dart';
@@ -134,6 +138,13 @@ class AppPages {
       }),
     ),
     GetPage(
+      name: AppRoutes.paymentMethods,
+      page: () => const PaymentMethodScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => PaymentMethodScreenController());
+      }),
+    ),
+    GetPage(
       name: AppRoutes.addAddress,
       page: () => AddAddressScreen(),
       binding: BindingsBuilder(() {
@@ -145,6 +156,21 @@ class AppPages {
       page: () => ProvinceSelectScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => ProvinceSelectScreenController());
+      }),
+    ),
+
+    GetPage(
+      name: AppRoutes.paymentMethods,
+      page: () => PaymentMethodScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => PaymentMethodScreenController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.addNewCard,
+      page: () => AddNewCardScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AddNewCardScreenController());
       }),
     ),
   ];

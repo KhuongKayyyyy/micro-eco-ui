@@ -44,6 +44,7 @@ class AccountScreen extends BaseScreen<AccountScreenController> {
         AppFeatureItem(
           title: context.tr('account.paymentMethods'),
           icon: Icons.payment_outlined,
+          onTap: () => controller.goToPaymentMethods(),
         ),
         AppFeatureItem(
           title: context.tr('account.notifications'),

@@ -4,7 +4,7 @@ import 'package:ecommerce_app/components/general/app_button.dart';
 import 'package:ecommerce_app/components/general/app_text.dart';
 import 'package:ecommerce_app/constants/app_color.dart';
 import 'package:ecommerce_app/constants/string_constant.dart';
-import 'package:ecommerce_app/data/serivce/address_service.dart';
+import 'package:ecommerce_app/data/service/address_service.dart';
 import 'package:ecommerce_app/screens/tab/account/address_book/add_address_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/data/serivce/user_service.dart';
+import 'package:ecommerce_app/data/service/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

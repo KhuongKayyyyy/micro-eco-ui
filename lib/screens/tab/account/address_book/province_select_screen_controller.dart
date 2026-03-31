@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/common/utils/vietnamese_search_normalize.dart';
-import 'package:ecommerce_app/data/serivce/address_service.dart';
+import 'package:ecommerce_app/data/service/address_service.dart';
 import 'package:ecommerce_app/model/address_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -54,13 +54,15 @@ class ProvinceSelectScreenController extends GetxController {
     final raw = _addressArgument();
     if (raw == null) return;
 
-    final parts =
-        raw.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+    final parts = raw
+        .split(',')
+        .map((e) => e.trim())
+        .where((e) => e.isNotEmpty)
+        .toList();
     if (parts.length < 2) return;
 
     final provinceName = parts.first;
-    final wardName =
-        parts.length > 2 ? parts.sublist(1).join(', ') : parts[1];
+    final wardName = parts.length > 2 ? parts.sublist(1).join(', ') : parts[1];
 
     final p = _findProvinceByName(provinceName);
     if (p == null) return;
@@ -218,8 +220,7 @@ class ProvinceSelectScreenController extends GetxController {
     }
     if (best != null) return best;
 
-    final admin =
-        normalizeVietnameseForSearch(place.administrativeArea ?? '');
+    final admin = normalizeVietnameseForSearch(place.administrativeArea ?? '');
     if (admin.isEmpty) return null;
     for (final p in provinces) {
       final short = _provinceComparableNormalized(p.name);
@@ -255,10 +256,7 @@ class ProvinceSelectScreenController extends GetxController {
     var bestLen = 0;
     for (final w in wards) {
       final wn = normalizeVietnameseForSearch(w.name);
-      final stripped = wn.replaceFirst(
-        RegExp(r'^(phuong|xa|thi tran)\s+'),
-        '',
-      );
+      final stripped = wn.replaceFirst(RegExp(r'^(phuong|xa|thi tran)\s+'), '');
       for (final cand in {wn, stripped}) {
         if (cand.isEmpty) continue;
         if (blob.contains(cand) && cand.length > bestLen) {

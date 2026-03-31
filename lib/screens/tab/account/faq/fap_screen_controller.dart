@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ecommerce_app/data/serivce/faq_serivce.dart';
+import 'package:ecommerce_app/data/service/faq_serivce.dart';
 import 'package:ecommerce_app/model/faq_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

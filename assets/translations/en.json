@@ -145,6 +145,22 @@
         "addressTypeHome": "Home",
         "finish": "Finish"
     },
+    "paymentMethod": {
+        "savedCards": "Saved cards",
+        "noCards": "No saved payment methods yet.",
+        "addCard": "Add New Card",
+        "apply": "Apply",
+        "addCardTitle": "Add Debit or Credit Card",
+        "cardNumberLabel": "Card number",
+        "cardNumberHint": "Enter your card number",
+        "expiryLabel": "Expiry Date",
+        "expiryHint": "MM/YY",
+        "cvvLabel": "Security Code",
+        "cvvHint": "CVC",
+        "cardAdded": "Congratulations!",
+        "cardAddedSubtitle": "Your card has been added successfully.",
+        "cardAddedButton": "Done"
+    },
     "locationPicker": {
         "searchHint": "Search district, ward…",
         "useCurrentLocation": "Use my current location",

@@ -32,4 +32,8 @@ class AccountScreenController extends GetxController {
   void goToAddressBook() {
     Get.toNamed(AppRoutes.addressBook, id: null);
   }
+
+  void goToPaymentMethods() {
+    Get.toNamed(AppRoutes.paymentMethods, id: null);
+  }
 }

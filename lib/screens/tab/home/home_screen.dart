@@ -3,7 +3,7 @@ import 'package:ecommerce_app/components/base/base_screen.dart';
 import 'package:ecommerce_app/components/general/app_button.dart';
 import 'package:ecommerce_app/components/general/global_app_bar.dart';
 import 'package:ecommerce_app/constants/app_routes.dart';
-import 'package:ecommerce_app/data/serivce/address_service.dart';
+import 'package:ecommerce_app/data/service/address_service.dart';
 import 'package:ecommerce_app/screens/tab/home/home_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/tab_controller.dart';
 import 'package:flutter/material.dart';

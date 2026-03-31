@@ -27,6 +27,7 @@ class AppRoutes {
   static const String provinceSelect = '/provinceSelect';
   static const String myReviews = '/myReviews';
   static const String paymentMethods = '/paymentMethods';
+  static const String addNewCard = '/addNewCard';
   static const String notiSetting = '/notiSetting';
   static const String helpCenter = '/helpCenter';
   static const String faqs = '/faqs';

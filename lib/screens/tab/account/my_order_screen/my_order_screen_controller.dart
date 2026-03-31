@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/common/enum/order_status_enum.dart';
-import 'package:ecommerce_app/data/serivce/order_service.dart';
+import 'package:ecommerce_app/data/service/order_service.dart';
 import 'package:ecommerce_app/model/order/order.dart';
 import 'package:get/get.dart';
 
@@ -44,12 +44,12 @@ class MyOrderScreenController extends GetxController {
   }
 
   List<Map<String, String>> get orderTypeSegments => [
-        {'label': 'All', 'type': 'all'},
-        {'label': 'Pending', 'type': OrderStatusEnum.pending},
-        {'label': 'Processing', 'type': OrderStatusEnum.processing},
-        {'label': 'Shipping', 'type': OrderStatusEnum.shipping},
-        {'label': 'Delivered', 'type': OrderStatusEnum.delivered},
-        {'label': 'Returned', 'type': OrderStatusEnum.returned},
-        {'label': 'Cancelled', 'type': OrderStatusEnum.cancelled},
-      ];
+    {'label': 'All', 'type': 'all'},
+    {'label': 'Pending', 'type': OrderStatusEnum.pending},
+    {'label': 'Processing', 'type': OrderStatusEnum.processing},
+    {'label': 'Shipping', 'type': OrderStatusEnum.shipping},
+    {'label': 'Delivered', 'type': OrderStatusEnum.delivered},
+    {'label': 'Returned', 'type': OrderStatusEnum.returned},
+    {'label': 'Cancelled', 'type': OrderStatusEnum.cancelled},
+  ];
 }

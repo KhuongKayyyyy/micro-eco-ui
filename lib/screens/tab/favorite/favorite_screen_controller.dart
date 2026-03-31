@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/data/serivce/product_service.dart';
+import 'package:ecommerce_app/data/service/product_service.dart';
 import 'package:ecommerce_app/model/product/favorite_product.dart';
 import 'package:get/get.dart';
 

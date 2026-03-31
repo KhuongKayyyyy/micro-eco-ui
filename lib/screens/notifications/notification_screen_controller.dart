@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/data/serivce/notification_service.dart';
+import 'package:ecommerce_app/data/service/notification_service.dart';
 import 'package:ecommerce_app/model/notification_model.dart';
 import 'package:get/get.dart';
 
