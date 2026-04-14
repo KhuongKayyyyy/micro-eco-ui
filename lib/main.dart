@@ -8,6 +8,7 @@ import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:ecommerce_app/constants/app_theme.dart';
 import 'package:ecommerce_app/screens/splash_screen.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -18,6 +19,7 @@ void main() async {
 
   // Initialize EasyLocalization
   await EasyLocalization.ensureInitialized();
+  await dotenv.load(fileName: '.env');
 
   // FCM 초기화
   // final FcmService fcmService = FcmService();

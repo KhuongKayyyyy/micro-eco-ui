@@ -8,4 +8,13 @@ class ApiPath {
 
   /// Use with `?depth=2` to load nested [wards] for that province.
   static String provinceByCode(int code) => '/p/$code';
+
+  /// product categories
+  static const String productCategories = 'product-categories';
+  static const String rootProductCategories = 'product-categories/rootCategory';
+
+  /// brands
+  static const String brands = 'brands';
+  static const String brandById = 'brands/{id}';
+  static const String brandByCategory = 'brand/by-category/{category}';
 }

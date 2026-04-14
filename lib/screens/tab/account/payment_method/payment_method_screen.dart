@@ -126,7 +126,7 @@ class PaymentMethodScreen extends BaseScreen<PaymentMethodScreenController> {
 
 /// Reads label and wires onPressed from [PaymentMethodScreen] context.
 class _AddNewCardButtonSlot extends StatelessWidget {
-  _AddNewCardButtonSlot({super.key});
+  _AddNewCardButtonSlot();
   final PaymentMethodScreenController controller = Get.find();
 
   @override

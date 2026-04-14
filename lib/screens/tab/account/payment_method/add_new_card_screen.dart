@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecommerce_app/components/base/base_screen.dart';
-import 'package:ecommerce_app/components/dialog/success_dialog.dart';
 import 'package:ecommerce_app/components/general/app_button.dart';
 import 'package:ecommerce_app/components/general/app_text.dart';
 import 'package:ecommerce_app/components/general/app_textfield.dart';

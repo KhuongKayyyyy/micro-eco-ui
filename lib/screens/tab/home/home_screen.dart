@@ -61,7 +61,7 @@ class HomeScreen extends BaseScreen<HomeScreenController> {
   }
 
   Widget buildProductCategories(BuildContext context) {
-    final allCategory = ProductCategory(id: 'all', name: 'All');
+    final allCategory = ProductCategory(id: 'all', name: 'All', image: '');
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),

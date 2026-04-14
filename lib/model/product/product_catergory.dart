@@ -1,21 +1,42 @@
 class ProductCategory {
   final String id;
   final String name;
+  final String image;
   final String? parentId;
   final String? parentName;
 
   ProductCategory({
     required this.id,
     required this.name,
+    required this.image,
     this.parentId,
     this.parentName,
   });
+
+  factory ProductCategory.fromJson(Map<String, dynamic> json) {
+    return ProductCategory(
+      id: (json['id'] ?? '').toString(),
+      name: (json['name'] ?? '').toString(),
+      image: (json['image'] ?? '').toString(),
+      parentId: json['parentId']?.toString(),
+      parentName: json['parentName']?.toString(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'image': image,
+    'parentId': parentId,
+    'parentName': parentName,
+  };
 
   static final List<ProductCategory> productCategories = [
     // Root container (focus on Electronics area)
     ProductCategory(
       id: '0',
       name: 'Electronics',
+      image: 'assets/images/electronics.png',
       parentId: null,
       parentName: null,
     ),
@@ -26,18 +47,21 @@ class ProductCategory {
       name: 'Smartphones',
       parentId: '0',
       parentName: 'Electronics',
+      image: 'assets/images/smartphones.png',
     ),
     ProductCategory(
       id: '2',
       name: 'Watch',
       parentId: '0',
       parentName: 'Electronics',
+      image: 'assets/images/watch.png',
     ),
     ProductCategory(
       id: '3',
       name: 'Headphones',
       parentId: '0',
       parentName: 'Electronics',
+      image: 'assets/images/headphones.png',
     ),
 
     // Level 2 under Smartphones
@@ -46,18 +70,21 @@ class ProductCategory {
       name: 'Gaming Phones',
       parentId: '1',
       parentName: 'Smartphones',
+      image: 'assets/images/gaming_phones.png',
     ),
     ProductCategory(
       id: '11',
       name: 'Flagship Phones',
       parentId: '1',
       parentName: 'Smartphones',
+      image: 'assets/images/flagship_phones.png',
     ),
     ProductCategory(
       id: '12',
       name: 'Budget Phones',
       parentId: '1',
       parentName: 'Smartphones',
+      image: 'assets/images/budget_phones.png',
     ),
 
     // Level 2 under Watch
@@ -66,12 +93,14 @@ class ProductCategory {
       name: 'Smartwatches',
       parentId: '2',
       parentName: 'Watch',
+      image: 'assets/images/smartwatches.png',
     ),
     ProductCategory(
       id: '21',
       name: 'Smartbands',
       parentId: '2',
       parentName: 'Watch',
+      image: 'assets/images/smartbands.png',
     ),
 
     // Level 2 under Headphones
@@ -80,18 +109,21 @@ class ProductCategory {
       name: 'Wireless',
       parentId: '3',
       parentName: 'Headphones',
+      image: 'assets/images/wireless.png',
     ),
     ProductCategory(
       id: '31',
       name: 'Noise Cancelling',
       parentId: '3',
       parentName: 'Headphones',
+      image: 'assets/images/noise_cancelling.png',
     ),
     ProductCategory(
       id: '32',
       name: 'Gaming Headsets',
       parentId: '3',
       parentName: 'Headphones',
+      image: 'assets/images/gaming_headsets.png',
     ),
   ];
 
