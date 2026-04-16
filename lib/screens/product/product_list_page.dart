@@ -9,6 +9,7 @@ import 'package:ecommerce_app/screens/product/components/criteria_list.dart';
 import 'package:ecommerce_app/screens/product/components/filter_list.dart';
 import 'package:ecommerce_app/screens/product/components/product_banner.dart';
 import 'package:ecommerce_app/screens/product/product_list_page_controller.dart';
+import 'package:ecommerce_app/screens/product/components/price_filter_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -36,18 +37,6 @@ class ProductListPage extends BaseScreen<ProductListPageController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
-              text: 'Category ID: ${controller.categoryId.value ?? '-'}',
-              fontSize: 14,
-              color: AppColors.gray700,
-            ),
-            AppText(
-              text: 'Brand ID: ${controller.brandId.value ?? '-'}',
-              fontSize: 14,
-              color: AppColors.gray700,
-            ),
-            const SizedBox(height: 8),
-
             const ProductBanner(
               imageUrls: [
                 'https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:100/plain/https://dashboard.cellphones.com.vn/storage/Group2085661017.png',
@@ -69,9 +58,35 @@ class ProductListPage extends BaseScreen<ProductListPageController> {
             ),
             if (!controller.hasSelectedBrand) const BrandInCategoryList(),
             const SizedBox(height: 12),
-            const CriteriaList(),
+            CriteriaList(
+              isByPriceSelected: controller.minPrice.value != null &&
+                  controller.maxPrice.value != null,
+              onByPriceTap: () async {
+                final range = await Get.bottomSheet<PriceRange>(
+                  PriceFilterPopUp(
+                    categoryId: controller.categoryId.value,
+                    brandId: controller.brandId.value,
+                    initialMinPrice: controller.minPrice.value,
+                    initialMaxPrice: controller.maxPrice.value,
+                  ),
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                );
+
+                if (range != null) {
+                  // Apply only price range here. Keep sort direction as-is.
+                  controller.applyPriceRange(
+                    range,
+                    controller.priceSortState.value,
+                  );
+                }
+              },
+            ),
             FilterList(
               initialValue: controller.selectedFilter.value,
+              isPriceRangeApplied:
+                  controller.minPrice.value != null &&
+                  controller.maxPrice.value != null,
               onChanged: controller.onSelectFilter,
             ),
             if (controller.isLoading.value)

@@ -4,7 +4,14 @@ import 'package:ecommerce_app/constants/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CriteriaList extends StatelessWidget {
-  const CriteriaList({super.key});
+  const CriteriaList({
+    super.key,
+    this.onByPriceTap,
+    this.isByPriceSelected = false,
+  });
+
+  final VoidCallback? onByPriceTap;
+  final bool isByPriceSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +38,8 @@ class CriteriaList extends StatelessWidget {
               child: _CriteriaItem(
                 label: context.tr('productList.criteriaByPrice'),
                 icon: Icons.sell_outlined,
+                onTap: onByPriceTap,
+                isActive: isByPriceSelected,
               ),
             ),
             const SizedBox(width: 8),
@@ -48,34 +57,51 @@ class CriteriaList extends StatelessWidget {
 }
 
 class _CriteriaItem extends StatelessWidget {
-  const _CriteriaItem({required this.label, required this.icon});
+  const _CriteriaItem({
+    required this.label,
+    required this.icon,
+    this.onTap,
+    this.isActive = false,
+  });
 
   final String label;
   final IconData icon;
+  final VoidCallback? onTap;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
         height: 45,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: AppColors.gray200.withValues(alpha: 0.45),
+          color: isActive
+              ? AppColors.sub.withValues(alpha: 0.18)
+              : AppColors.gray200.withValues(alpha: 0.45),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isActive ? AppColors.sub : Colors.transparent,
+            width: isActive ? 1 : 0,
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 20, color: AppColors.gray900),
+            Icon(
+              icon,
+              size: 20,
+              color: isActive ? AppColors.sub : AppColors.gray900,
+            ),
             const SizedBox(width: 6),
             Flexible(
               child: AppText(
                 text: label,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: AppColors.gray900,
+                color: isActive ? AppColors.sub : AppColors.gray900,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

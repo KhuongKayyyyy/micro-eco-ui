@@ -21,4 +21,8 @@ class ApiPath {
 
   /// products
   static const String productSearch = 'products/search';
+
+  /// Highest available price for the given filters.
+  /// Optional query params: `categoryId`, `brandId`
+  static const String productHighestPrice = 'products/highest-price';
 }

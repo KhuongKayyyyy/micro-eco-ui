@@ -15,10 +15,16 @@ class FilterSelection {
 }
 
 class FilterList extends StatefulWidget {
-  const FilterList({super.key, this.onChanged, this.initialValue});
+  const FilterList({
+    super.key,
+    this.onChanged,
+    this.initialValue,
+    this.isPriceRangeApplied = false,
+  });
 
   final ValueChanged<FilterSelection>? onChanged;
   final ProductFilterType? initialValue;
+  final bool isPriceRangeApplied;
 
   @override
   State<FilterList> createState() => _FilterListState();
@@ -35,7 +41,25 @@ class _FilterListState extends State<FilterList> {
   }
 
   @override
+  void didUpdateWidget(covariant FilterList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.initialValue != oldWidget.initialValue) {
+      setState(() {
+        selected = widget.initialValue ?? ProductFilterType.popular;
+        if (selected != ProductFilterType.price) {
+          priceSortState = PriceSortState.none;
+        }
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final isPriceTabActive =
+        selected == ProductFilterType.price ||
+        priceSortState != PriceSortState.none;
+
     return Container(
       color: AppColors.white,
       child: Column(
@@ -63,7 +87,7 @@ class _FilterListState extends State<FilterList> {
                 Expanded(
                   child: _FilterTab(
                     label: context.tr('productList.filterPrice'),
-                    isActive: priceSortState != PriceSortState.none,
+                    isActive: isPriceTabActive,
                     suffixIcon: _priceSortIcon,
                     onTap: _onPriceTap,
                   ),
@@ -74,6 +98,7 @@ class _FilterListState extends State<FilterList> {
                     label: context.tr('productList.filter'),
                     isActive: selected == ProductFilterType.filter,
                     suffixIcon: Icons.filter_alt_rounded,
+                    showDotOnIcon: widget.isPriceRangeApplied,
                     onTap: () => _onSelect(ProductFilterType.filter),
                   ),
                 ),
@@ -135,12 +160,14 @@ class _FilterTab extends StatelessWidget {
     this.isActive = false,
     this.suffixIcon,
     this.onTap,
+    this.showDotOnIcon = false,
   });
 
   final String label;
   final bool isActive;
   final IconData? suffixIcon;
   final VoidCallback? onTap;
+  final bool showDotOnIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +191,20 @@ class _FilterTab extends StatelessWidget {
                 ),
                 if (suffixIcon != null) ...[
                   const SizedBox(width: 2),
-                  Icon(suffixIcon, size: 20, color: textColor),
+                  SizedBox(
+                    width: 22,
+                    height: 22,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Center(
+                          child: Icon(suffixIcon, size: 20, color: textColor),
+                        ),
+                        if (showDotOnIcon)
+                          const Positioned(top: -2, right: -2, child: _Dot()),
+                      ],
+                    ),
+                  ),
                 ],
               ],
             ),
@@ -186,5 +226,21 @@ class _DividerLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(width: 1, height: 24, color: AppColors.gray300);
+  }
+}
+
+class _Dot extends StatelessWidget {
+  const _Dot();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 8,
+      height: 8,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: AppColors.statusWarn,
+      ),
+    );
   }
 }

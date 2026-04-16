@@ -5,8 +5,10 @@ import 'package:ecommerce_app/data/service/product_category_service.dart';
 import 'package:ecommerce_app/data/service/product_service.dart';
 import 'package:ecommerce_app/model/brand/brand_model.dart';
 import 'package:ecommerce_app/model/product/product_model.dart';
+import 'package:ecommerce_app/screens/product/components/price_filter_pop_up.dart';
 import 'package:ecommerce_app/screens/product/components/filter_list.dart';
 import 'package:get/get.dart';
+import 'package:decimal/decimal.dart';
 
 class ProductListPageController extends GetxController {
   static const int _initialPageSize = 10;
@@ -22,6 +24,8 @@ class ProductListPageController extends GetxController {
   final brandId = RxnString();
   final selectedFilter = ProductFilterType.popular.obs;
   final priceSortState = PriceSortState.none.obs;
+  final minPrice = Rxn<Decimal>();
+  final maxPrice = Rxn<Decimal>();
   final totalElements = 0.obs;
   bool get hasSelectedBrand =>
       brandId.value != null && brandId.value!.trim().isNotEmpty;
@@ -186,6 +190,15 @@ class ProductListPageController extends GetxController {
     fetchProducts(reset: true);
   }
 
+  void applyPriceRange(PriceRange range, PriceSortState sortState) {
+    // "By price" in criteria_list only sets min/max range.
+    // It should not force switching FilterList to "Price" (sort).
+    priceSortState.value = sortState;
+    minPrice.value = range.minPrice;
+    maxPrice.value = range.maxPrice;
+    fetchProducts(reset: true);
+  }
+
   Future<void> fetchProducts({bool reset = false}) async {
     if (isLoading.value) return;
     if (reset) {
@@ -203,6 +216,8 @@ class ProductListPageController extends GetxController {
       final result = await ProductService.searchProduct(
         categoryId: categoryId.value,
         brandId: brandId.value,
+        minPrice: minPrice.value,
+        maxPrice: maxPrice.value,
         page: 0,
         size: _requestedSize,
         sortBy: sortBy,
@@ -230,6 +245,8 @@ class ProductListPageController extends GetxController {
       final result = await ProductService.searchProduct(
         categoryId: categoryId.value,
         brandId: brandId.value,
+        minPrice: minPrice.value,
+        maxPrice: maxPrice.value,
         page: 0,
         size: _requestedSize,
         sortBy: sortBy,
