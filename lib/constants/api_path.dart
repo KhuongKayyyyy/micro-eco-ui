@@ -12,9 +12,13 @@ class ApiPath {
   /// product categories
   static const String productCategories = 'product-categories';
   static const String rootProductCategories = 'product-categories/rootCategory';
+  static const String productCategoryById = 'product-categories/{id}';
 
   /// brands
   static const String brands = 'brands';
   static const String brandById = 'brands/{id}';
   static const String brandByCategory = 'brand/by-category/{category}';
+
+  /// products
+  static const String productSearch = 'products/search';
 }

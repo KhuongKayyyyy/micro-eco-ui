@@ -23,6 +23,37 @@ class ProductModel {
     required this.brand,
   });
 
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    double toDouble(dynamic value) {
+      if (value is num) return value.toDouble();
+      if (value is String) return double.tryParse(value) ?? 0;
+      return 0;
+    }
+
+    int toInt(dynamic value) {
+      if (value is int) return value;
+      if (value is num) return value.toInt();
+      if (value is String) return int.tryParse(value) ?? 0;
+      return 0;
+    }
+
+    final price = toDouble(json['price']);
+    final discount = toDouble(json['discountPrice']);
+
+    return ProductModel(
+      id: json['id']?.toString() ?? json['name']?.toString() ?? '',
+      name: json['name']?.toString() ?? '',
+      description: json['description']?.toString() ?? '',
+      image: json['image']?.toString() ?? '',
+      price: price,
+      discountPrice: discount > 0 ? discount : price,
+      rating: toDouble(json['rating']),
+      reviewsCount: toInt(json['reviewsCount']),
+      category: json['category']?.toString() ?? '',
+      brand: json['brand']?.toString() ?? '',
+    );
+  }
+
   static final List<ProductModel> mockProducts = [
     ProductModel(
       id: '1',

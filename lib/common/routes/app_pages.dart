@@ -35,6 +35,8 @@ import 'package:ecommerce_app/screens/tab/account/payment_method/payment_method_
 import 'package:ecommerce_app/screens/tab/account/payment_method/payment_method_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_screen.dart';
+import 'package:ecommerce_app/screens/product/product_list_page.dart';
+import 'package:ecommerce_app/screens/product/product_list_page_controller.dart';
 import 'package:ecommerce_app/screens/tab/tab_screen.dart';
 import 'package:get/get.dart';
 
@@ -180,6 +182,13 @@ class AppPages {
       page: () => CustomerServiceScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => CustomerServiceScreenController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.productList,
+      page: () => const ProductListPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ProductListPageController(), fenix: true);
       }),
     ),
   ];

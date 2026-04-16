@@ -3,7 +3,9 @@ import 'package:ecommerce_app/components/base/base_screen.dart';
 import 'package:ecommerce_app/components/general/app_text.dart';
 import 'package:ecommerce_app/components/general/global_search_bar.dart';
 import 'package:ecommerce_app/components/product/search_root_category_item.dart';
+import 'package:ecommerce_app/common/utils/app_navigator_utils.dart';
 import 'package:ecommerce_app/constants/app_color.dart';
+import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:ecommerce_app/screens/tab/search/search_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,7 +70,7 @@ class SearchScreen extends BaseScreen<SearchScreenController> {
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: AppText(
-                            text: 'No categories',
+                            text: context.tr('searchScreen.noCategories'),
                             fontSize: 13,
                             color: AppColors.gray500,
                             textAlign: TextAlign.center,
@@ -127,17 +129,40 @@ class SearchScreen extends BaseScreen<SearchScreenController> {
                                       color: AppColors.gray900,
                                     ),
                                   ),
-                                  AppText(
-                                    text: 'Xem tat ca',
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xFF4F7BB9),
-                                  ),
-                                  const SizedBox(width: 2),
-                                  const Icon(
-                                    Icons.chevron_right_rounded,
-                                    size: 18,
-                                    color: Color(0xFF4F7BB9),
+                                  InkWell(
+                                    onTap: () => AppNavigatorUtils.goToScreen(
+                                      context,
+                                      AppRoutes.productList,
+                                      arguments: {
+                                        'categoryId': selected.id,
+                                        'categoryName': selected.name,
+                                      },
+                                    ),
+                                    borderRadius: BorderRadius.circular(6),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 4,
+                                        vertical: 2,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          AppText(
+                                            text: context.tr(
+                                              'searchScreen.viewAll',
+                                            ),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xFF4F7BB9),
+                                          ),
+                                          const SizedBox(width: 2),
+                                          const Icon(
+                                            Icons.chevron_right_rounded,
+                                            size: 18,
+                                            color: Color(0xFF4F7BB9),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -146,9 +171,14 @@ class SearchScreen extends BaseScreen<SearchScreenController> {
                           Expanded(
                             child: SingleChildScrollView(
                               child: _SectionCard(
-                                title: 'Hang dien thoai',
+                                title: context.tr(
+                                  'searchScreen.brandSectionTitle',
+                                ),
                                 child: _BrandGridSection(
                                   isLoading: controller.isLoadingBrands.value,
+                                  noDataText: context.tr(
+                                    'searchScreen.noBrands',
+                                  ),
                                 ),
                               ),
                             ),
@@ -201,9 +231,10 @@ class _SectionCard extends StatelessWidget {
 }
 
 class _BrandGridSection extends GetView<SearchScreenController> {
-  const _BrandGridSection({required this.isLoading});
+  const _BrandGridSection({required this.isLoading, required this.noDataText});
 
   final bool isLoading;
+  final String noDataText;
 
   @override
   Widget build(BuildContext context) {
@@ -223,46 +254,68 @@ class _BrandGridSection extends GetView<SearchScreenController> {
 
     final brands = controller.brands;
     if (brands.isEmpty) {
-      return AppText(text: 'No brands', fontSize: 13, color: AppColors.gray500);
+      return AppText(text: noDataText, fontSize: 13, color: AppColors.gray500);
     }
 
     return Wrap(
       spacing: 8,
       runSpacing: 8,
       children: [
-        for (final b in brands) _BrandChip(label: b.name, imageUrl: b.image),
+        for (final b in brands)
+          _BrandChip(
+            label: b.name,
+            imageUrl: b.image,
+            onTap: () => AppNavigatorUtils.goToScreen(
+              context,
+              AppRoutes.productList,
+              arguments: {
+                'categoryId': controller.selectedRootCategoryId.value,
+                'categoryName': controller.rootCategories
+                    .firstWhereOrNull(
+                      (e) => e.id == controller.selectedRootCategoryId.value,
+                    )
+                    ?.name,
+                'brandId': b.id,
+              },
+            ),
+          ),
       ],
     );
   }
 }
 
 class _BrandChip extends StatelessWidget {
-  const _BrandChip({required this.label, this.imageUrl});
+  const _BrandChip({required this.label, this.imageUrl, this.onTap});
 
   final String label;
   final String? imageUrl;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints(minWidth: 86, maxWidth: 108),
-      height: 38,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.gray200),
-        color: AppColors.white,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        constraints: const BoxConstraints(minWidth: 86, maxWidth: 108),
+        height: 38,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.gray200),
+          color: AppColors.white,
+        ),
+        alignment: Alignment.center,
+        child: imageUrl != null && imageUrl!.isNotEmpty
+            ? Image.network(
+                imageUrl!,
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => _BrandLabel(label: label),
+                loadingBuilder: (context, child, progress) =>
+                    progress == null ? child : _BrandLabel(label: label),
+              )
+            : _BrandLabel(label: label),
       ),
-      alignment: Alignment.center,
-      child: imageUrl != null && imageUrl!.isNotEmpty
-          ? Image.network(
-              imageUrl!,
-              fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => _BrandLabel(label: label),
-              loadingBuilder: (context, child, progress) =>
-                  progress == null ? child : _BrandLabel(label: label),
-            )
-          : _BrandLabel(label: label),
     );
   }
 }
