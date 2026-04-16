@@ -36,6 +36,18 @@ class ProductListPage extends BaseScreen<ProductListPageController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            AppText(
+              text: 'Category ID: ${controller.categoryId.value ?? '-'}',
+              fontSize: 14,
+              color: AppColors.gray700,
+            ),
+            AppText(
+              text: 'Brand ID: ${controller.brandId.value ?? '-'}',
+              fontSize: 14,
+              color: AppColors.gray700,
+            ),
+            const SizedBox(height: 8),
+
             const ProductBanner(
               imageUrls: [
                 'https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:100/plain/https://dashboard.cellphones.com.vn/storage/Group2085661017.png',

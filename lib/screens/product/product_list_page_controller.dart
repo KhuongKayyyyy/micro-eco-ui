@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/common/services/navigation_payload_store.dart';
+import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:ecommerce_app/data/service/brand_service.dart';
 import 'package:ecommerce_app/data/service/product_category_service.dart';
 import 'package:ecommerce_app/data/service/product_service.dart';
@@ -46,7 +48,7 @@ class ProductListPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _applyRouteArguments(_currentRoutePayload);
+    _applyRouteParameters(_currentRouteParameters);
     _resolveCategoryNameById();
     _loadBrands();
     fetchProducts();
@@ -57,11 +59,11 @@ class ProductListPageController extends GetxController {
     super.onReady();
 
     // Apply lần đầu
-    applyRouteArguments(_currentRoutePayload);
+    applyRouteParameters(_currentRouteParameters);
 
     // Lắng nghe khi route thay đổi
     ever(Get.routing.obs, (_) {
-      applyRouteArguments(_currentRoutePayload);
+      applyRouteParameters(_currentRouteParameters);
     });
   }
 
@@ -72,33 +74,59 @@ class ProductListPageController extends GetxController {
     return value;
   }
 
-  Map<String, dynamic> get _currentRoutePayload {
-    final payload = <String, dynamic>{};
+  Map<String, String> get _currentRouteParameters {
+    final parameters = <String, String>{};
     if (Get.parameters.isNotEmpty) {
-      payload.addAll(Get.parameters);
+      Get.parameters.forEach((key, value) {
+        if (value == null) return;
+        parameters[key] = value;
+      });
     }
-    final arguments = Get.arguments;
-    if (arguments is Map) {
-      payload.addAll(
-        arguments.map((key, value) => MapEntry(key.toString(), value)),
-      );
+
+    // Fallback for nested navigator cases where Get.parameters is empty
+    // but the current route name still contains query parameters.
+    final rawRouteName = Get.rawRoute?.settings.name;
+    final uri = rawRouteName == null ? null : Uri.tryParse(rawRouteName);
+    if (uri != null && uri.queryParameters.isNotEmpty) {
+      parameters.addAll(uri.queryParameters);
     }
-    return payload;
+
+    if (parameters.isEmpty) {
+      final payloadStore = Get.find<NavigationPayloadStore>();
+      parameters.addAll(payloadStore.consume(AppRoutes.productList));
+    }
+    return parameters;
   }
 
-  void _applyRouteArguments(dynamic args) {
-    if (args is! Map) return;
-    categoryId.value = _normalizeNullable(args['categoryId']);
-    categoryName.value = _normalizeNullable(args['categoryName']);
-    brandId.value = _normalizeNullable(args['brandId']);
+  void _applyRouteParameters(Map<String, String> parameters) {
+    if (parameters.containsKey('categoryId')) {
+      categoryId.value = _normalizeNullable(parameters['categoryId']);
+    }
+    if (parameters.containsKey('categoryName')) {
+      categoryName.value = _normalizeNullable(parameters['categoryName']);
+    }
+    if (parameters.containsKey('brandId')) {
+      brandId.value = _normalizeNullable(parameters['brandId']);
+    }
   }
 
-  Future<void> applyRouteArguments(dynamic args) async {
-    if (args is! Map) return;
+  Future<void> applyRouteParameters(Map<String, String> parameters) async {
+    if (parameters.isEmpty) return;
+    if (!parameters.containsKey('categoryId') &&
+        !parameters.containsKey('categoryName') &&
+        !parameters.containsKey('brandId')) {
+      return;
+    }
 
-    final nextCategoryId = _normalizeNullable(args['categoryId']);
-    final nextCategoryName = _normalizeNullable(args['categoryName']);
-    final nextBrandId = _normalizeNullable(args['brandId']);
+    final nextCategoryId = parameters.containsKey('categoryId')
+        ? _normalizeNullable(parameters['categoryId'])
+        : categoryId.value;
+    final nextCategoryName = parameters.containsKey('categoryName')
+        ? _normalizeNullable(parameters['categoryName'])
+        : categoryName.value;
+    final nextBrandId = parameters.containsKey('brandId')
+        ? _normalizeNullable(parameters['brandId'])
+        : brandId.value;
 
     final changed =
         nextCategoryId != categoryId.value ||

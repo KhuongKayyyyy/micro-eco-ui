@@ -45,22 +45,13 @@ class TabScreenController extends GetxController {
         initialRoute: Navigator.defaultRouteName,
         onGenerateRoute: (settings) {
           final name = settings.name;
-          final uri = name == null ? null : Uri.tryParse(name);
-          final queryParameters = uri?.queryParameters ?? const <String, String>{};
 
           // Use GetX route definitions (binding/controllers) already defined in `AppPages`.
           final getPage = _findGetPage(name);
           if (getPage != null) {
-            final mergedArguments = _mergeRouteArguments(
-              settings.arguments,
-              queryParameters,
-            );
-            final routeSettings = RouteSettings(
-              name: uri?.path ?? name,
-              arguments: mergedArguments,
-            );
             return GetPageRoute(
-              settings: routeSettings,
+              settings: settings,
+              routeName: settings.name,
               page: getPage.page,
               binding: getPage.binding,
               bindings: getPage.bindings,
@@ -96,20 +87,5 @@ class TabScreenController extends GetxController {
     final uri = Uri.tryParse(name);
     if (uri == null) return null;
     return _routeMap[uri.path];
-  }
-
-  dynamic _mergeRouteArguments(
-    dynamic originalArguments,
-    Map<String, String> queryParameters,
-  ) {
-    if (queryParameters.isEmpty) return originalArguments;
-
-    final merged = <String, dynamic>{...queryParameters};
-    if (originalArguments is Map) {
-      for (final entry in originalArguments.entries) {
-        merged[entry.key.toString()] = entry.value;
-      }
-    }
-    return merged;
   }
 }

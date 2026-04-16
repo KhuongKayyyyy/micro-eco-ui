@@ -130,14 +130,18 @@ class SearchScreen extends BaseScreen<SearchScreenController> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () => AppNavigatorUtils.goToScreen(
-                                      context,
-                                      AppRoutes.productList,
-                                      arguments: {
-                                        'categoryId': selected.id,
-                                        'categoryName': selected.name,
-                                      },
-                                    ),
+                                    onTap: () {
+                                      AppNavigatorUtils.goToScreen(
+                                        context,
+                                        AppRoutes.productList,
+                                        parameters: {
+                                          'categoryId': selected.id,
+                                          'categoryName': selected.name,
+                                        },
+                                      );
+                                      print("view all clicked");
+                                      print(selected.id);
+                                    },
                                     borderRadius: BorderRadius.circular(6),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -268,7 +272,7 @@ class _BrandGridSection extends GetView<SearchScreenController> {
             onTap: () => AppNavigatorUtils.goToScreen(
               context,
               AppRoutes.productList,
-              arguments: {
+              parameters: {
                 'categoryId': controller.selectedRootCategoryId.value,
                 'categoryName': controller.rootCategories
                     .firstWhereOrNull(

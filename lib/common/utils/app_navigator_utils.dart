@@ -1,40 +1,45 @@
+import 'package:ecommerce_app/common/services/navigation_payload_store.dart';
 import 'package:ecommerce_app/screens/tab/tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppNavigatorUtils {
-  static Map<String, String>? _toRouteParameters(dynamic arguments) {
-    if (arguments is! Map) return null;
-    final parameters = <String, String>{};
-    arguments.forEach((key, value) {
+  static Map<String, String>? _normalizeRouteParameters(dynamic parameters) {
+    if (parameters is! Map) return null;
+    final normalizedParameters = <String, String>{};
+    for (final entry in parameters.entries) {
+      final key = entry.key;
+      final value = entry.value;
       final normalizedKey = key?.toString().trim();
-      if (normalizedKey == null || normalizedKey.isEmpty) return;
-      if (value == null) return;
+      if (normalizedKey == null || normalizedKey.isEmpty) continue;
+      if (value == null) continue;
       final normalizedValue = value.toString().trim();
       if (normalizedValue.isEmpty || normalizedValue.toLowerCase() == 'null') {
-        return;
+        continue;
       }
-      parameters[normalizedKey] = normalizedValue;
-    });
-    return parameters.isEmpty ? null : parameters;
+      normalizedParameters[normalizedKey] = normalizedValue;
+    }
+    return normalizedParameters.isEmpty ? null : normalizedParameters;
   }
 
   static void goToScreen(
     BuildContext context,
     String route, {
     int? id,
-    dynamic arguments,
+    dynamic parameters,
   }) {
     final tabController = Get.find<TabScreenController>();
     final currentTabIndex = tabController.currentIndex.value;
     final currentTabNavigatorId =
         tabController.tabNavigatorIds[currentTabIndex];
-    final parameters = _toRouteParameters(arguments);
+    final routeParameters = _normalizeRouteParameters(parameters);
+    if (routeParameters != null && routeParameters.isNotEmpty) {
+      Get.find<NavigationPayloadStore>().save(route, routeParameters);
+    }
     Get.toNamed(
       route,
       id: id ?? currentTabNavigatorId,
-      arguments: arguments,
-      parameters: parameters,
+      parameters: routeParameters,
       preventDuplicates: false,
     );
   }
