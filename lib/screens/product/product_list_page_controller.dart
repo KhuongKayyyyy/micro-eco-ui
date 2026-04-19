@@ -1,8 +1,10 @@
 import 'package:ecommerce_app/common/services/navigation_payload_store.dart';
 import 'package:ecommerce_app/constants/app_routes.dart';
+import 'package:ecommerce_app/data/service/article_service.dart';
 import 'package:ecommerce_app/data/service/brand_service.dart';
 import 'package:ecommerce_app/data/service/product_category_service.dart';
 import 'package:ecommerce_app/data/service/product_service.dart';
+import 'package:ecommerce_app/model/article/article_model.dart';
 import 'package:ecommerce_app/model/brand/brand_model.dart';
 import 'package:ecommerce_app/model/product/product_model.dart';
 import 'package:ecommerce_app/screens/product/components/filter_pop_up.dart';
@@ -18,8 +20,10 @@ class ProductListPageController extends GetxController {
   final isLoading = false.obs;
   final isLoadingMore = false.obs;
   final products = <ProductModel>[].obs;
+  final articles = <ArticleModel>[].obs;
   final brands = BrandModel.mockBrands.toList().obs;
   final isLoadingBrands = false.obs;
+  final isLoadingArticles = false.obs;
   final categoryId = RxnString();
   final categoryName = RxnString();
   final brandId = RxnString();
@@ -77,6 +81,7 @@ class ProductListPageController extends GetxController {
     _applyRouteParameters(_currentRouteParameters);
     _resolveCategoryNameById();
     _loadBrands();
+    _loadArticles();
     fetchProducts();
   }
 
@@ -167,7 +172,26 @@ class ProductListPageController extends GetxController {
 
     await _resolveCategoryNameById();
     await _loadBrands();
+    await _loadArticles();
     await fetchProducts(reset: true);
+  }
+
+  Future<void> _loadArticles() async {
+    final cid = categoryId.value;
+    if (cid == null || cid.trim().isEmpty) {
+      articles.clear();
+      return;
+    }
+
+    isLoadingArticles.value = true;
+    try {
+      final data = await ArticleService.getArticlesByCategory(cid);
+      articles.assignAll(data);
+    } catch (_) {
+      articles.clear();
+    } finally {
+      isLoadingArticles.value = false;
+    }
   }
 
   Future<void> _loadBrands() async {

@@ -7,6 +7,9 @@ import 'package:ecommerce_app/model/product/product_model.dart';
 import 'package:ecommerce_app/screens/product/components/brand_in_category_list.dart';
 import 'package:ecommerce_app/screens/product/components/criteria_list.dart';
 import 'package:ecommerce_app/screens/product/components/filter_list.dart';
+import 'package:ecommerce_app/screens/product/components/article_list.dart';
+import 'package:ecommerce_app/screens/product/article_webview_page.dart';
+import 'package:ecommerce_app/screens/product/components/faq_section.dart';
 import 'package:ecommerce_app/screens/product/components/product_banner.dart';
 import 'package:ecommerce_app/screens/product/product_list_page_controller.dart';
 import 'package:ecommerce_app/screens/product/components/filter_pop_up.dart';
@@ -169,6 +172,55 @@ class ProductListPage extends BaseScreen<ProductListPageController> {
                 fontWeight: FontWeight.w600,
               ),
             ],
+            const SizedBox(height: 20),
+            if (controller.isLoadingArticles.value)
+              Skeletonizer(
+                enabled: true,
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 4,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
+                    childAspectRatio: 0.86,
+                  ),
+                  itemBuilder: (context, index) => Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    height: 180,
+                  ),
+                ),
+              )
+            else
+              ArticleList(
+                articles: controller.articles,
+                onSeeAllTap: () {
+                  Get.to(
+                    () => const ArticleWebViewPage(
+                      url: 'https://cellphones.com.vn/sforum',
+                      title: 'Sforum',
+                    ),
+                  );
+                },
+                onArticleTap: (article) {
+                  final link = article.link.trim();
+                  if (link.isEmpty) return;
+                  final uri = Uri.tryParse(link);
+                  if (uri == null) return;
+                  Get.to(
+                    () => ArticleWebViewPage(
+                      url: uri.toString(),
+                      title: article.name,
+                    ),
+                  );
+                },
+              ),
+            const SizedBox(height: 24),
+            const FaqSection(),
           ],
         ),
       ),
