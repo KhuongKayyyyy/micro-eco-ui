@@ -9,6 +9,7 @@ import 'package:ecommerce_app/screens/product/components/criteria_list.dart';
 import 'package:ecommerce_app/screens/product/components/filter_list.dart';
 import 'package:ecommerce_app/screens/product/components/product_banner.dart';
 import 'package:ecommerce_app/screens/product/product_list_page_controller.dart';
+import 'package:ecommerce_app/screens/product/components/filter_pop_up.dart';
 import 'package:ecommerce_app/screens/product/components/price_filter_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -61,6 +62,7 @@ class ProductListPage extends BaseScreen<ProductListPageController> {
             CriteriaList(
               isByPriceSelected: controller.minPrice.value != null &&
                   controller.maxPrice.value != null,
+              isReadySelected: controller.availableOnly.value,
               onByPriceTap: () async {
                 final range = await Get.bottomSheet<PriceRange>(
                   PriceFilterPopUp(
@@ -81,12 +83,27 @@ class ProductListPage extends BaseScreen<ProductListPageController> {
                   );
                 }
               },
+              onReadyTap: controller.toggleAvailableOnly,
             ),
             FilterList(
               initialValue: controller.selectedFilter.value,
-              isPriceRangeApplied:
-                  controller.minPrice.value != null &&
-                  controller.maxPrice.value != null,
+              hasActiveFilters: controller.showFilterBarBadge,
+              onFilterTap: () async {
+                controller.selectFilterTabOnly();
+                await Get.bottomSheet<void>(
+                  FilterPopUp(
+                    categoryId: controller.categoryId.value,
+                    brandId: controller.brandId.value,
+                    initialMinPrice: controller.minPrice.value,
+                    initialMaxPrice: controller.maxPrice.value,
+                    initialAvailableOnly: controller.availableOnly.value,
+                    initialAttributes: controller.appliedAttributesSnapshot,
+                    onApply: controller.applyFilterSheet,
+                  ),
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                );
+              },
               onChanged: controller.onSelectFilter,
             ),
             if (controller.isLoading.value)

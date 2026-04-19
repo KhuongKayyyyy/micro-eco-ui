@@ -8,10 +8,14 @@ class CriteriaList extends StatelessWidget {
     super.key,
     this.onByPriceTap,
     this.isByPriceSelected = false,
+    this.onReadyTap,
+    this.isReadySelected = false,
   });
 
   final VoidCallback? onByPriceTap;
   final bool isByPriceSelected;
+  final VoidCallback? onReadyTap;
+  final bool isReadySelected;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +35,8 @@ class CriteriaList extends StatelessWidget {
               child: _CriteriaItem(
                 label: context.tr('productList.criteriaReady'),
                 icon: Icons.local_shipping_outlined,
+                onTap: onReadyTap,
+                isActive: isReadySelected,
               ),
             ),
             const SizedBox(width: 8),

@@ -11,10 +11,31 @@ class PriceRange {
   final Decimal minPrice;
   final Decimal maxPrice;
 
-  const PriceRange({
-    required this.minPrice,
-    required this.maxPrice,
-  });
+  const PriceRange({required this.minPrice, required this.maxPrice});
+}
+
+/// Shared helpers so other UIs (e.g. full filter sheet) stay consistent with
+/// [PriceFilterPopUp].
+abstract final class PriceRangeFilterHelper {
+  static const double step = 1000;
+
+  static String formatVnPrice(double value) {
+    final intValue = value.round();
+    if (intValue <= 0) return '0.000 đ';
+    final formatted = NumberFormat('#,##0', 'vi_VN').format(intValue);
+    return '$formatted đ';
+  }
+
+  static double snapToStep(double v) {
+    return (v / step).round().toDouble() * step;
+  }
+
+  /// Parses user input that may contain grouping dots / "đ" / spaces.
+  static Decimal? parseLooseMoneyToDecimal(String raw) {
+    final digits = raw.replaceAll(RegExp(r'[^\d]'), '');
+    if (digits.isEmpty) return null;
+    return Decimal.parse(digits);
+  }
 }
 
 class PriceFilterPopUp extends StatefulWidget {
@@ -37,14 +58,10 @@ class PriceFilterPopUp extends StatefulWidget {
 
 class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
   // Match the design from the screenshot (red accent).
-  static const Color _accentRed = Color(0xFFE1001A);
 
   bool _loading = true;
   double _maxAvailablePrice = 0;
   RangeValues _selectedRange = const RangeValues(0, 0);
-
-  // Use discrete steps so the values look like a money selection.
-  static const double _step = 1000;
 
   @override
   void initState() {
@@ -68,27 +85,14 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
 
     // Snap to step.
     final snappedStart =
-        (minClamped / _step).round().toDouble() * _step;
-    final snappedEnd =
-        (maxClamped / _step).round().toDouble() * _step;
+        PriceRangeFilterHelper.snapToStep(minClamped.toDouble());
+    final snappedEnd = PriceRangeFilterHelper.snapToStep(maxClamped.toDouble());
 
     setState(() {
       _loading = false;
       _maxAvailablePrice = safeMax;
       _selectedRange = RangeValues(snappedStart, snappedEnd);
     });
-  }
-
-  String _formatVnPrice(double value) {
-    final intValue = value.round();
-    if (intValue <= 0) return '0.000 đ';
-    final formatted = NumberFormat('#,##0', 'vi_VN').format(intValue);
-    // vi_VN uses '.' for thousands already.
-    return '$formatted đ';
-  }
-
-  double _snapToStep(double v) {
-    return (v / _step).round().toDouble() * _step;
   }
 
   @override
@@ -98,9 +102,7 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(24),
-          ),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
@@ -143,7 +145,9 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
                       children: [
                         Expanded(
                           child: AppText(
-                            text: _formatVnPrice(_selectedRange.start),
+                            text: PriceRangeFilterHelper.formatVnPrice(
+                              _selectedRange.start,
+                            ),
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: AppColors.gray900,
@@ -157,7 +161,9 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
                         ),
                         Expanded(
                           child: AppText(
-                            text: _formatVnPrice(_selectedRange.end),
+                            text: PriceRangeFilterHelper.formatVnPrice(
+                              _selectedRange.end,
+                            ),
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: AppColors.gray900,
@@ -174,7 +180,7 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
                           width: 34,
                           child: CircularProgressIndicator(
                             strokeWidth: 3,
-                            color: _accentRed,
+                            color: AppColors.primary,
                           ),
                         ),
                       )
@@ -182,8 +188,7 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
                           trackHeight: 6,
-                          rangeThumbShape:
-                              const RoundRangeSliderThumbShape(
+                          rangeThumbShape: const RoundRangeSliderThumbShape(
                             enabledThumbRadius: 10,
                             disabledThumbRadius: 10,
                           ),
@@ -194,24 +199,24 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
                           max: _maxAvailablePrice <= 0
                               ? 1.0
                               : _maxAvailablePrice,
-                          activeColor: _accentRed,
+                          activeColor: AppColors.primary,
                           inactiveColor: AppColors.gray200,
                           labels: RangeLabels(
-                            _formatVnPrice(_selectedRange.start),
-                            _formatVnPrice(_selectedRange.end),
+                            PriceRangeFilterHelper.formatVnPrice(
+                              _selectedRange.start,
+                            ),
+                            PriceRangeFilterHelper.formatVnPrice(
+                              _selectedRange.end,
+                            ),
                           ),
                           onChanged: (values) {
-                            final snappedStart = _snapToStep(values.start)
-                                .clamp(
-                                  0.0,
-                                  _maxAvailablePrice,
-                                )
+                            final snappedStart = PriceRangeFilterHelper
+                                .snapToStep(values.start)
+                                .clamp(0.0, _maxAvailablePrice)
                                 .toDouble();
-                            final snappedEnd = _snapToStep(values.end)
-                                .clamp(
-                                  snappedStart,
-                                  _maxAvailablePrice,
-                                )
+                            final snappedEnd = PriceRangeFilterHelper
+                                .snapToStep(values.end)
+                                .clamp(snappedStart, _maxAvailablePrice)
                                 .toDouble();
                             setState(() {
                               _selectedRange = RangeValues(
@@ -232,8 +237,8 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
                     child: AppButton(
                       text: 'Đóng',
                       color: AppColors.white,
-                      textColor: _accentRed,
-                      border: Border.all(color: _accentRed),
+                      textColor: AppColors.primary,
+                      border: Border.all(color: AppColors.primary),
                       borderRadius: 14,
                       height: 54,
                       fontSize: 16,
@@ -245,7 +250,7 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
                   Expanded(
                     child: AppButton(
                       text: 'Xem kết quả',
-                      color: _accentRed,
+                      color: AppColors.primary,
                       textColor: AppColors.white,
                       borderRadius: 14,
                       height: 54,
@@ -256,12 +261,8 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
                         final max = _selectedRange.end;
                         Get.back(
                           result: PriceRange(
-                            minPrice: Decimal.parse(
-                              min.toStringAsFixed(0),
-                            ),
-                            maxPrice: Decimal.parse(
-                              max.toStringAsFixed(0),
-                            ),
+                            minPrice: Decimal.parse(min.toStringAsFixed(0)),
+                            maxPrice: Decimal.parse(max.toStringAsFixed(0)),
                           ),
                         );
                       },

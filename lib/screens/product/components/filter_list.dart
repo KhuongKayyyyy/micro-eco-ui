@@ -19,12 +19,14 @@ class FilterList extends StatefulWidget {
     super.key,
     this.onChanged,
     this.initialValue,
-    this.isPriceRangeApplied = false,
+    this.hasActiveFilters = false,
+    this.onFilterTap,
   });
 
   final ValueChanged<FilterSelection>? onChanged;
   final ProductFilterType? initialValue;
-  final bool isPriceRangeApplied;
+  final bool hasActiveFilters;
+  final VoidCallback? onFilterTap;
 
   @override
   State<FilterList> createState() => _FilterListState();
@@ -47,7 +49,10 @@ class _FilterListState extends State<FilterList> {
     if (widget.initialValue != oldWidget.initialValue) {
       setState(() {
         selected = widget.initialValue ?? ProductFilterType.popular;
-        if (selected != ProductFilterType.price) {
+        // Keep sort state when opening the advanced filter sheet (filter tab)
+        // while price sorting is still active on the controller.
+        if (selected != ProductFilterType.price &&
+            selected != ProductFilterType.filter) {
           priceSortState = PriceSortState.none;
         }
       });
@@ -98,8 +103,8 @@ class _FilterListState extends State<FilterList> {
                     label: context.tr('productList.filter'),
                     isActive: selected == ProductFilterType.filter,
                     suffixIcon: Icons.filter_alt_rounded,
-                    showDotOnIcon: widget.isPriceRangeApplied,
-                    onTap: () => _onSelect(ProductFilterType.filter),
+                    showDotOnIcon: widget.hasActiveFilters,
+                    onTap: _onFilterTabTap,
                   ),
                 ),
               ],
@@ -122,6 +127,14 @@ class _FilterListState extends State<FilterList> {
     widget.onChanged?.call(
       FilterSelection(type: selected, priceSortState: priceSortState),
     );
+  }
+
+  void _onFilterTabTap() {
+    if (widget.onFilterTap != null) {
+      widget.onFilterTap!();
+      return;
+    }
+    _onSelect(ProductFilterType.filter);
   }
 
   void _onPriceTap() {

@@ -47,10 +47,12 @@ class ProductService {
     String? brandId,
     Decimal? minPrice,
     Decimal? maxPrice,
+    bool? available,
     int? page,
     int? size,
     String? sortBy,
     String? sortDirection,
+    Map<String, String>? attributeQuery,
   }) async {
     final params = <String, dynamic>{
       if (categoryId != null && categoryId.trim().isNotEmpty)
@@ -58,12 +60,22 @@ class ProductService {
       if (brandId != null && brandId.trim().isNotEmpty) 'brandId': brandId.trim(),
       if (minPrice != null) 'minPrice': minPrice.toString(),
       if (maxPrice != null) 'maxPrice': maxPrice.toString(),
+      if (available != null) 'available': available,
       if (page != null) 'page': page,
       if (size != null) 'size': size,
       if (sortBy != null && sortBy.trim().isNotEmpty) 'sortBy': sortBy.trim(),
       if (sortDirection != null && sortDirection.trim().isNotEmpty)
         'sortDirection': sortDirection.trim(),
     };
+
+    if (attributeQuery != null) {
+      attributeQuery.forEach((key, value) {
+        final k = key.trim();
+        final v = value.trim();
+        if (k.isEmpty || v.isEmpty) return;
+        params[k] = v;
+      });
+    }
 
     final response = await Get.find<DioService>().get<Map<String, dynamic>>(
       baseUrl: AppEnv.productServiceBaseUrl,

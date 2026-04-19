@@ -5,6 +5,7 @@ import 'package:ecommerce_app/data/service/product_category_service.dart';
 import 'package:ecommerce_app/data/service/product_service.dart';
 import 'package:ecommerce_app/model/brand/brand_model.dart';
 import 'package:ecommerce_app/model/product/product_model.dart';
+import 'package:ecommerce_app/screens/product/components/filter_pop_up.dart';
 import 'package:ecommerce_app/screens/product/components/price_filter_pop_up.dart';
 import 'package:ecommerce_app/screens/product/components/filter_list.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,9 @@ class ProductListPageController extends GetxController {
   final priceSortState = PriceSortState.none.obs;
   final minPrice = Rxn<Decimal>();
   final maxPrice = Rxn<Decimal>();
+  final availableOnly = false.obs;
+  /// Multi-value filters (each list is joined with ", " in the request).
+  final appliedAttributes = <String, List<String>>{}.obs;
   final totalElements = 0.obs;
   bool get hasSelectedBrand =>
       brandId.value != null && brandId.value!.trim().isNotEmpty;
@@ -46,6 +50,24 @@ class ProductListPageController extends GetxController {
     final remaining = totalElements.value - products.length;
     return remaining > 0 ? remaining : 0;
   }
+
+  bool get hasAttributeFilters =>
+      appliedAttributes.entries.any((e) => e.value.isNotEmpty);
+
+  bool get showFilterBarBadge =>
+      (minPrice.value != null && maxPrice.value != null) ||
+      availableOnly.value ||
+      hasAttributeFilters;
+
+  Map<String, List<String>> get appliedAttributesSnapshot =>
+      appliedAttributes.map(
+        (k, v) => MapEntry(k, List<String>.from(v)),
+      );
+
+  Map<String, String> get _attributeQueryParams => {
+        for (final e in appliedAttributes.entries)
+          if (e.value.isNotEmpty) e.key: e.value.join(', '),
+      };
 
   int _requestedSize = _initialPageSize;
 
@@ -190,6 +212,26 @@ class ProductListPageController extends GetxController {
     fetchProducts(reset: true);
   }
 
+  /// Selects the "Bộ lọc" tab visually without refetching (sheet will apply).
+  void selectFilterTabOnly() {
+    selectedFilter.value = ProductFilterType.filter;
+  }
+
+  void applyFilterSheet(FilterSheetApply apply) {
+    minPrice.value = apply.priceRange.minPrice;
+    maxPrice.value = apply.priceRange.maxPrice;
+    availableOnly.value = apply.availableOnly;
+    appliedAttributes.assignAll(
+      apply.attributes.map((k, v) => MapEntry(k, List<String>.from(v))),
+    );
+    fetchProducts(reset: true);
+  }
+
+  void toggleAvailableOnly() {
+    availableOnly.value = !availableOnly.value;
+    fetchProducts(reset: true);
+  }
+
   void applyPriceRange(PriceRange range, PriceSortState sortState) {
     // "By price" in criteria_list only sets min/max range.
     // It should not force switching FilterList to "Price" (sort).
@@ -218,10 +260,12 @@ class ProductListPageController extends GetxController {
         brandId: brandId.value,
         minPrice: minPrice.value,
         maxPrice: maxPrice.value,
+        available: availableOnly.value ? true : null,
         page: 0,
         size: _requestedSize,
         sortBy: sortBy,
         sortDirection: sortDirection,
+        attributeQuery: _attributeQueryParams.isEmpty ? null : _attributeQueryParams,
       );
       totalElements.value = result.totalElements;
       products.assignAll(result.items);
@@ -247,10 +291,12 @@ class ProductListPageController extends GetxController {
         brandId: brandId.value,
         minPrice: minPrice.value,
         maxPrice: maxPrice.value,
+        available: availableOnly.value ? true : null,
         page: 0,
         size: _requestedSize,
         sortBy: sortBy,
         sortDirection: sortDirection,
+        attributeQuery: _attributeQueryParams.isEmpty ? null : _attributeQueryParams,
       );
       totalElements.value = result.totalElements;
       products.assignAll(result.items);
