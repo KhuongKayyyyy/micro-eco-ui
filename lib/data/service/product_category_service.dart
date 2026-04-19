@@ -14,4 +14,22 @@ class ProductCategoryService {
         .map((e) => ProductCategory.fromJson(Map<String, dynamic>.from(e)))
         .toList();
   }
+
+  static Future<ProductCategory?> getCategoryById(String id) async {
+    final normalizedId = id.trim();
+    if (normalizedId.isEmpty) return null;
+
+    try {
+      final response = await Get.find<DioService>().get<Map<String, dynamic>>(
+        baseUrl: AppEnv.productServiceBaseUrl,
+        path: ApiPath.productCategoryById.replaceAll('{id}', normalizedId),
+      );
+      return ProductCategory.fromJson(response);
+    } catch (_) {
+      final local = ProductCategory.productCategories.firstWhereOrNull(
+        (e) => e.id == normalizedId,
+      );
+      return local;
+    }
+  }
 }

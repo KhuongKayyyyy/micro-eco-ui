@@ -12,9 +12,17 @@ class ApiPath {
   /// product categories
   static const String productCategories = 'product-categories';
   static const String rootProductCategories = 'product-categories/rootCategory';
+  static const String productCategoryById = 'product-categories/{id}';
 
   /// brands
   static const String brands = 'brands';
   static const String brandById = 'brands/{id}';
   static const String brandByCategory = 'brand/by-category/{category}';
+
+  /// products
+  static const String productSearch = 'products/search';
+
+  /// Highest available price for the given filters.
+  /// Optional query params: `categoryId`, `brandId`
+  static const String productHighestPrice = 'products/highest-price';
 }

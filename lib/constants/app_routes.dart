@@ -34,4 +34,7 @@ class AppRoutes {
   static const String faqs = '/faqs';
   static const String language = '/language';
   static const String logout = '/logout';
+
+  //product routes
+  static const String productList = '/productList';
 }

@@ -51,6 +51,7 @@ class TabScreenController extends GetxController {
           if (getPage != null) {
             return GetPageRoute(
               settings: settings,
+              routeName: settings.name,
               page: getPage.page,
               binding: getPage.binding,
               bindings: getPage.bindings,
@@ -80,6 +81,11 @@ class TabScreenController extends GetxController {
 
   GetPage? _findGetPage(String? name) {
     if (name == null) return null;
-    return _routeMap[name];
+    final directMatch = _routeMap[name];
+    if (directMatch != null) return directMatch;
+
+    final uri = Uri.tryParse(name);
+    if (uri == null) return null;
+    return _routeMap[uri.path];
   }
 }

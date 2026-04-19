@@ -189,5 +189,29 @@
         "shipping": "Shipping fee",
         "total": "Total",
         "checkout": "Go To Checkout"
+    },
+    "searchScreen": {
+        "hintText": "What do you want to buy today?",
+        "noCategories": "No categories",
+        "viewAll": "View all",
+        "brandSectionTitle": "Phone brands",
+        "noBrands": "No brands"
+    },
+    "productList": {
+        "viewAll": "View all",
+        "selectByBrand": "Select by brand",
+        "close": "Close",
+        "criteriaTitle": "Choose by criteria",
+        "criteriaReady": "Ready",
+        "criteriaByPrice": "By price",
+        "criteriaNewArrival": "New arrivals",
+        "filterPopular": "Popular",
+        "filterPromotion": "Promotion",
+        "filterPrice": "Price",
+        "filter": "Filter",
+        "taxLabel": "0 % tax",
+        "outOfStock": "Out of stock",
+        "contactToBuy": "Contact to buy",
+        "studentDiscount": "Student will get more {amount} discount"
     }
 }
