@@ -3,6 +3,7 @@ import 'package:ecommerce_app/constants/app_env.dart';
 import 'package:ecommerce_app/data/dio/dio_service.dart';
 import 'package:ecommerce_app/model/product/favorite_product.dart';
 import 'package:ecommerce_app/data/service/product_category_service.dart';
+import 'package:ecommerce_app/model/product/product_detail_model.dart';
 import 'package:ecommerce_app/model/product/product_catergory.dart';
 import 'package:ecommerce_app/model/product/product_model.dart';
 import 'package:decimal/decimal.dart';
@@ -139,5 +140,37 @@ class ProductService {
     }
 
     return 0;
+  }
+
+  static Future<ProductDetailModel> getProductDetailById(String id) async {
+    final safeId = id.trim();
+    if (safeId.isEmpty) {
+      throw Exception('Product id is empty');
+    }
+
+    final response = await Get.find<DioService>().get<Map<String, dynamic>>(
+      baseUrl: AppEnv.productServiceBaseUrl,
+      path: ApiPath.productDetailById.replaceAll('{id}', safeId),
+    );
+
+    return ProductDetailModel.fromJson(response);
+  }
+
+  static Future<List<ProductDetailModel>> getStorageVariantsByName(
+    String productName,
+  ) async {
+    final safeName = productName.trim();
+    if (safeName.isEmpty) return const [];
+
+    final response = await Get.find<DioService>().get<List<dynamic>>(
+      baseUrl: AppEnv.productServiceBaseUrl,
+      path: ApiPath.productStorageVariants,
+      parameters: {'name': safeName},
+    );
+
+    return response
+        .whereType<Map<String, dynamic>>()
+        .map(ProductDetailModel.fromJson)
+        .toList();
   }
 }

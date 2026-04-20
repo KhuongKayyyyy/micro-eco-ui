@@ -12,6 +12,10 @@ import 'package:ecommerce_app/screens/auth/sign_up/sign_up_screen.dart';
 import 'package:ecommerce_app/screens/auth/sign_up/sign_up_screen_controller.dart';
 import 'package:ecommerce_app/screens/notifications/notification_screen.dart';
 import 'package:ecommerce_app/screens/notifications/notification_screen_controller.dart';
+import 'package:ecommerce_app/screens/product/product_detail/product_detail_screen.dart';
+import 'package:ecommerce_app/screens/product/product_detail/product_detail_screen_controller.dart';
+import 'package:ecommerce_app/screens/product/product_list/product_list_page.dart';
+import 'package:ecommerce_app/screens/product/product_list/product_list_page_controller.dart';
 import 'package:ecommerce_app/screens/splash_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/address_book/add_address_screen.dart';
 import 'package:ecommerce_app/screens/tab/account/address_book/add_address_screen_controller.dart';
@@ -35,8 +39,6 @@ import 'package:ecommerce_app/screens/tab/account/payment_method/payment_method_
 import 'package:ecommerce_app/screens/tab/account/payment_method/payment_method_screen_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_controller.dart';
 import 'package:ecommerce_app/screens/tab/account/notifications/noti_setting_screen.dart';
-import 'package:ecommerce_app/screens/product/product_list_page.dart';
-import 'package:ecommerce_app/screens/product/product_list_page_controller.dart';
 import 'package:ecommerce_app/screens/tab/tab_screen.dart';
 import 'package:get/get.dart';
 
@@ -189,6 +191,14 @@ class AppPages {
       page: () => const ProductListPage(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => ProductListPageController(), fenix: true);
+      }),
+    ),
+
+    GetPage(
+      name: AppRoutes.productDetail,
+      page: () => const ProductDetailScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ProductDetailScreenController(), fenix: true);
       }),
     ),
   ];

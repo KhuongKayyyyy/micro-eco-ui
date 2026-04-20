@@ -84,9 +84,8 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
     final maxClamped = initMax.clamp(minClamped, safeMax);
 
     // Snap to step.
-    final snappedStart = PriceRangeFilterHelper.snapToStep(
-      minClamped.toDouble(),
-    );
+    final snappedStart =
+        PriceRangeFilterHelper.snapToStep(minClamped.toDouble());
     final snappedEnd = PriceRangeFilterHelper.snapToStep(maxClamped.toDouble());
 
     setState(() {
@@ -211,14 +210,14 @@ class _PriceFilterPopUpState extends State<PriceFilterPopUp> {
                             ),
                           ),
                           onChanged: (values) {
-                            final snappedStart =
-                                PriceRangeFilterHelper.snapToStep(
-                                  values.start,
-                                ).clamp(0.0, _maxAvailablePrice).toDouble();
-                            final snappedEnd =
-                                PriceRangeFilterHelper.snapToStep(values.end)
-                                    .clamp(snappedStart, _maxAvailablePrice)
-                                    .toDouble();
+                            final snappedStart = PriceRangeFilterHelper
+                                .snapToStep(values.start)
+                                .clamp(0.0, _maxAvailablePrice)
+                                .toDouble();
+                            final snappedEnd = PriceRangeFilterHelper
+                                .snapToStep(values.end)
+                                .clamp(snappedStart, _maxAvailablePrice)
+                                .toDouble();
                             setState(() {
                               _selectedRange = RangeValues(
                                 snappedStart,

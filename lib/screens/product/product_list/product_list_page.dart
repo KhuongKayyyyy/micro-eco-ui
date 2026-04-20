@@ -5,15 +5,15 @@ import 'package:ecommerce_app/components/product/product_item.dart';
 import 'package:ecommerce_app/constants/app_color.dart';
 import 'package:ecommerce_app/model/product/product_model.dart';
 import 'package:ecommerce_app/screens/product/components/brand_in_category_list.dart';
-import 'package:ecommerce_app/screens/product/components/criteria_list.dart';
 import 'package:ecommerce_app/screens/product/components/filter_list.dart';
-import 'package:ecommerce_app/screens/product/components/article_list.dart';
-import 'package:ecommerce_app/screens/product/article_webview_page.dart';
-import 'package:ecommerce_app/screens/product/components/faq_section.dart';
-import 'package:ecommerce_app/screens/product/components/product_banner.dart';
-import 'package:ecommerce_app/screens/product/product_list_page_controller.dart';
-import 'package:ecommerce_app/screens/product/components/filter_pop_up.dart';
-import 'package:ecommerce_app/screens/product/components/price_filter_pop_up.dart';
+import 'package:ecommerce_app/screens/product/product_list/article_webview_page.dart';
+import 'package:ecommerce_app/screens/product/product_list/components/article_list.dart';
+import 'package:ecommerce_app/screens/product/product_list/components/criteria_list.dart';
+import 'package:ecommerce_app/screens/product/product_list/components/faq_section.dart';
+import 'package:ecommerce_app/screens/product/product_list/components/filter_pop_up.dart';
+import 'package:ecommerce_app/screens/product/product_list/components/price_filter_pop_up.dart';
+import 'package:ecommerce_app/screens/product/product_list/components/product_banner.dart';
+import 'package:ecommerce_app/screens/product/product_list/product_list_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -63,7 +63,8 @@ class ProductListPage extends BaseScreen<ProductListPageController> {
             if (!controller.hasSelectedBrand) const BrandInCategoryList(),
             const SizedBox(height: 12),
             CriteriaList(
-              isByPriceSelected: controller.minPrice.value != null &&
+              isByPriceSelected:
+                  controller.minPrice.value != null &&
                   controller.maxPrice.value != null,
               isReadySelected: controller.availableOnly.value,
               onByPriceTap: () async {
@@ -148,7 +149,10 @@ class ProductListPage extends BaseScreen<ProductListPageController> {
                 ),
                 itemBuilder: (context, index) {
                   final product = controller.products[index];
-                  return ProductItem(product: product);
+                  return ProductItem(
+                    product: product,
+                    onTap: () => controller.goToProductDetail(product.id),
+                  );
                 },
               ),
             if (!controller.isLoading.value && controller.hasMoreProducts) ...[

@@ -21,6 +21,8 @@ class ApiPath {
 
   /// products
   static const String productSearch = 'products/search';
+  static const String productDetailById = 'products/{id}';
+  static const String productStorageVariants = 'products/storage-variants';
   static const String articleByCategory = 'articles/by-category/{categoryId}';
 
   /// Highest available price for the given filters.

@@ -86,6 +86,21 @@ class TabScreenController extends GetxController {
 
     final uri = Uri.tryParse(name);
     if (uri == null) return null;
-    return _routeMap[uri.path];
+    final path = uri.path;
+    final exactByPath = _routeMap[path];
+    if (exactByPath != null) return exactByPath;
+
+    // Support dynamic template routes like `/productDetail/{productId}`.
+    for (final entry in _routeMap.entries) {
+      final template = entry.key;
+      if (!template.contains('{')) continue;
+      final pattern =
+          '^${RegExp.escape(template).replaceAll(RegExp(r'\\\{[^/]+\\\}'), '[^/]+')}\$';
+      if (RegExp(pattern).hasMatch(path)) {
+        return entry.value;
+      }
+    }
+
+    return null;
   }
 }

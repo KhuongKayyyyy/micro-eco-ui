@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/common/services/navigation_payload_store.dart';
+import 'package:ecommerce_app/common/utils/app_navigator_utils.dart';
 import 'package:ecommerce_app/constants/app_routes.dart';
 import 'package:ecommerce_app/data/service/article_service.dart';
 import 'package:ecommerce_app/data/service/brand_service.dart';
@@ -7,9 +8,10 @@ import 'package:ecommerce_app/data/service/product_service.dart';
 import 'package:ecommerce_app/model/article/article_model.dart';
 import 'package:ecommerce_app/model/brand/brand_model.dart';
 import 'package:ecommerce_app/model/product/product_model.dart';
-import 'package:ecommerce_app/screens/product/components/filter_pop_up.dart';
-import 'package:ecommerce_app/screens/product/components/price_filter_pop_up.dart';
 import 'package:ecommerce_app/screens/product/components/filter_list.dart';
+
+import 'package:ecommerce_app/screens/product/product_list/components/filter_pop_up.dart';
+import 'package:ecommerce_app/screens/product/product_list/components/price_filter_pop_up.dart';
 import 'package:get/get.dart';
 import 'package:decimal/decimal.dart';
 
@@ -32,6 +34,7 @@ class ProductListPageController extends GetxController {
   final minPrice = Rxn<Decimal>();
   final maxPrice = Rxn<Decimal>();
   final availableOnly = false.obs;
+
   /// Multi-value filters (each list is joined with ", " in the request).
   final appliedAttributes = <String, List<String>>{}.obs;
   final totalElements = 0.obs;
@@ -64,14 +67,12 @@ class ProductListPageController extends GetxController {
       hasAttributeFilters;
 
   Map<String, List<String>> get appliedAttributesSnapshot =>
-      appliedAttributes.map(
-        (k, v) => MapEntry(k, List<String>.from(v)),
-      );
+      appliedAttributes.map((k, v) => MapEntry(k, List<String>.from(v)));
 
   Map<String, String> get _attributeQueryParams => {
-        for (final e in appliedAttributes.entries)
-          if (e.value.isNotEmpty) e.key: e.value.join(', '),
-      };
+    for (final e in appliedAttributes.entries)
+      if (e.value.isNotEmpty) e.key: e.value.join(', '),
+  };
 
   int _requestedSize = _initialPageSize;
 
@@ -289,7 +290,9 @@ class ProductListPageController extends GetxController {
         size: _requestedSize,
         sortBy: sortBy,
         sortDirection: sortDirection,
-        attributeQuery: _attributeQueryParams.isEmpty ? null : _attributeQueryParams,
+        attributeQuery: _attributeQueryParams.isEmpty
+            ? null
+            : _attributeQueryParams,
       );
       totalElements.value = result.totalElements;
       products.assignAll(result.items);
@@ -320,7 +323,9 @@ class ProductListPageController extends GetxController {
         size: _requestedSize,
         sortBy: sortBy,
         sortDirection: sortDirection,
-        attributeQuery: _attributeQueryParams.isEmpty ? null : _attributeQueryParams,
+        attributeQuery: _attributeQueryParams.isEmpty
+            ? null
+            : _attributeQueryParams,
       );
       totalElements.value = result.totalElements;
       products.assignAll(result.items);
@@ -343,5 +348,9 @@ class ProductListPageController extends GetxController {
       case ProductFilterType.filter:
         return '';
     }
+  }
+
+  void goToProductDetail(String productId) {
+    Get.toNamed(AppRoutes.productDetail, parameters: {'productId': productId});
   }
 }

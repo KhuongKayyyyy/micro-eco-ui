@@ -37,4 +37,5 @@ class AppRoutes {
 
   //product routes
   static const String productList = '/productList';
+  static const String productDetail = '/productDetail';
 }

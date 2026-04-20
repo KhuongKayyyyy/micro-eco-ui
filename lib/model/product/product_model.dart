@@ -24,6 +24,16 @@ class ProductModel {
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
+    String? firstNonEmpty(List<dynamic> candidates) {
+      for (final candidate in candidates) {
+        if (candidate == null) continue;
+        final value = candidate.toString().trim();
+        if (value.isEmpty || value.toLowerCase() == 'null') continue;
+        return value;
+      }
+      return null;
+    }
+
     double toDouble(dynamic value) {
       if (value is num) return value.toDouble();
       if (value is String) return double.tryParse(value) ?? 0;
@@ -40,8 +50,19 @@ class ProductModel {
     final price = toDouble(json['price']);
     final discount = toDouble(json['discountPrice']);
 
+    final resolvedId = firstNonEmpty([
+          json['id'],
+          json['_id'],
+          json['productId'],
+          json['product_id'],
+          json['uuid'],
+          (json['product'] is Map ? json['product']['id'] : null),
+          (json['product'] is Map ? json['product']['_id'] : null),
+        ]) ??
+        '';
+
     return ProductModel(
-      id: json['id']?.toString() ?? json['name']?.toString() ?? '',
+      id: resolvedId,
       name: json['name']?.toString() ?? '',
       description: json['description']?.toString() ?? '',
       image: json['image']?.toString() ?? '',

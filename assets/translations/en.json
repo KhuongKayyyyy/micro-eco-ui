@@ -213,5 +213,31 @@
         "outOfStock": "Out of stock",
         "contactToBuy": "Contact to buy",
         "studentDiscount": "Student will get more {amount} discount"
+    },
+    "productDetail": {
+        "title": "Product detail",
+        "video": "Video",
+        "features": "Features",
+        "storageVariants": "Storage",
+        "colorVariants": "Colors",
+        "technicalInfo": "Technical information",
+        "viewAllSpecs": "View all",
+        "ratingTitle": "Product rating",
+        "viewAll": "View all",
+        "writeReview": "Write review",
+        "ratingTotalReviews": "{count} reviews",
+        "ratingCount": "{count} reviews",
+        "ratingByExperience": "Rating by experience",
+        "ratingPerformance": "Performance",
+        "ratingBattery": "Battery life",
+        "ratingCameraQuality": "Camera quality",
+        "ratingCountWithParens": "({count} reviews)",
+        "favorite": "Favorite",
+        "qna": "Q&A",
+        "specs": "Specs",
+        "reviewCount": "({count} reviews)",
+        "noticeTitle": "Notice",
+        "noVideo": "This product has no video yet.",
+        "invalidYoutubeLink": "Video link is not a valid YouTube URL."
     }
 }
