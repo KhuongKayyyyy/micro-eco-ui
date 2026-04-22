@@ -19,7 +19,7 @@ void main() async {
 
   // Initialize EasyLocalization
   await EasyLocalization.ensureInitialized();
-  await dotenv.load(fileName: '.env');
+  // await dotenv.load(fileName: '.env');
 
   // FCM 초기화
   // final FcmService fcmService = FcmService();
